@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 
 @Entity
 public class Candidate extends Babas {
+
     @Id
     @GeneratedValue(generator = "increment")
     private Integer id;
+
     @OneToOne
     private Student student;
 

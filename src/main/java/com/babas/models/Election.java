@@ -10,9 +10,11 @@ import java.util.List;
 
 @Entity
 public class Election extends Babas {
+
     @Id
     @GeneratedValue(generator = "increment")
     private Integer id;
+
     @NotBlank(message = "Descripción")
     private String description;
 
