@@ -6,13 +6,23 @@ import com.babas.utilitiesTables.UtilitiesTables;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.util.Map;
 
 import static com.babas.utilitiesTables.UtilitiesTables.buscarTexto;
 
 public class StudentCellRendered extends DefaultTableCellRenderer {
-
+    private Map<Integer, String> listaFiltros;
+    public StudentCellRendered(Map<Integer,String> listaFiltros){
+        this.listaFiltros=listaFiltros;
+    }
+    public static void setCellRenderer(JTable table, Map<Integer,String> listaFiltros){
+        StudentCellRendered cellRendered=new StudentCellRendered(listaFiltros);
+        for (int i=0;i<table.getColumnCount();i++){
+            table.getColumnModel().getColumn(i).setCellRenderer(cellRendered);
+        }
+    }
     public static void setCellRenderer(JTable table){
-        StudentCellRendered cellRendered=new StudentCellRendered();
+        StudentCellRendered cellRendered=new StudentCellRendered(null);
         for (int i=0;i<table.getColumnCount();i++){
             table.getColumnModel().getColumn(i).setCellRenderer(cellRendered);
         }
@@ -27,7 +37,7 @@ public class StudentCellRendered extends DefaultTableCellRenderer {
             table.getColumnModel().getColumn(column).setPreferredWidth(25);
             return UtilitiesTables.isButonSelected(isSelected,"x16/editar.png",table);
         }else{
-            JTextField componente=buscarTexto(null,value,column,this);
+            JTextField componente=buscarTexto(listaFiltros,value,column,this);
             switch(table.getColumnName(column)){
                 case "ID":
                     componente.setHorizontalAlignment(SwingConstants.CENTER);

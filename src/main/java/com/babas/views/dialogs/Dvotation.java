@@ -1,4 +1,4 @@
-package com.babas.views.frames;
+package com.babas.views.dialogs;
 
 import com.babas.App;
 import com.babas.custom.FondoPanel;
@@ -6,7 +6,7 @@ import com.babas.models.Election;
 
 import javax.swing.*;
 
-public class FrameVotation extends JDialog {
+public class Dvotation extends JDialog {
     private JPanel contentPane;
     private JLabel btnNameSchool;
     private JButton btnVotation;
@@ -15,7 +15,7 @@ public class FrameVotation extends JDialog {
     private JLabel lblImage;
     private Election election;
 
-    public FrameVotation(Election election){
+    public Dvotation(Election election){
         this.election=election;
         initComponents();
     }

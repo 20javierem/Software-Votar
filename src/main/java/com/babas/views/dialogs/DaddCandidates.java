@@ -1,5 +1,6 @@
 package com.babas.views.dialogs;
 
+import com.babas.App;
 import com.babas.models.Candidate;
 import com.babas.models.Election;
 import com.babas.models.Student;
@@ -10,9 +11,14 @@ import com.babas.utilitiesTables.tablesModels.StudentTableModel;
 import com.babas.views.frames.FramePrincipal;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.*;
+import java.util.List;
 
 public class DaddCandidates extends JDialog{
     private JPanel contentPane;
@@ -23,6 +29,12 @@ public class DaddCandidates extends JDialog{
     private Election election;
     private StudentTableModel model;
     private JTable tableElection;
+    private JButton btnClearSearch;
+    private Map<Integer, String> listaFiltros = new HashMap<Integer, String>();
+    private TableRowSorter<StudentTableModel> modeloOrdenado;
+    private List<RowFilter<StudentTableModel, String>> filtros = new ArrayList<>();
+    private RowFilter filtroand;
+
     public DaddCandidates(Election election,JTable tableElection){
         this.election=election;
         this.tableElection=tableElection;
@@ -37,6 +49,12 @@ public class DaddCandidates extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
                 onCancel();
+            }
+        });
+        txtStudent.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                filter();
             }
         });
     }
@@ -70,12 +88,47 @@ public class DaddCandidates extends JDialog{
         setModal(true);
         pack();
         setLocationRelativeTo(null);
+        loadPlaceHolders();
+    }
+    private void loadPlaceHolders(){
+        txtStudent.putClientProperty("JTextField.placeholderText","Estudiante...");
+        loadBtnClearSearch();
+    }
+    private void loadBtnClearSearch(){
+        btnClearSearch=new JButton();
+        btnClearSearch.setIcon(new ImageIcon(App.class.getResource("Icons/x24/cerrar.png")));
+        btnClearSearch.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        txtStudent.putClientProperty("JTextField.trailingComponent",btnClearSearch);
+        btnClearSearch.setVisible(false);
+        btnClearSearch.addActionListener(e -> {
+            txtStudent.setText(null);
+            btnClearSearch.setVisible(false);
+            filter();
+        });
+        txtStudent.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                btnClearSearch.setVisible(txtStudent.getText().length() > 0);
+            }
+        });
+    }
+    private void filter(){
+        filtros.clear();
+        String busqueda = txtStudent.getText().trim();
+        filtros.add(RowFilter.regexFilter(("(?i)"+ busqueda),0,1,2));
+        listaFiltros.put(0, busqueda);
+        listaFiltros.put(1, busqueda);
+        listaFiltros.put(2, busqueda);
+        filtroand = RowFilter.andFilter(filtros);
+        modeloOrdenado.setRowFilter(filtroand);
     }
     private void loadStudents(){
         model=new StudentTableModel(FramePrincipal.students);
         table.setModel(model);
         table.removeColumn(table.getColumn(""));
+        modeloOrdenado = new TableRowSorter<>(model);
+        table.setRowSorter(modeloOrdenado);
         UtilitiesTables.headerNegrita(table);
-        StudentCellRendered.setCellRenderer(table);
+        StudentCellRendered.setCellRenderer(table,listaFiltros);
     }
 }

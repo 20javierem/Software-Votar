@@ -34,11 +34,17 @@ public class ElectionCellRendered extends DefaultTableCellRenderer {
                     table.getColumn(table.getColumnName(column)).setMinWidth(40);
                     table.getColumn(table.getColumnName(column)).setPreferredWidth(40);
                     break;
+                case "CANDIDATOS":
+                    componente.setHorizontalAlignment(SwingConstants.CENTER);
+                    table.getColumn(table.getColumnName(column)).setMaxWidth(100);
+                    table.getColumn(table.getColumnName(column)).setMinWidth(100);
+                    table.getColumn(table.getColumnName(column)).setPreferredWidth(100);
+                    break;
                 case "ESTADO":
                     componente.setHorizontalAlignment(SwingConstants.CENTER);
-                    table.getColumn(table.getColumnName(column)).setMaxWidth(120);
-                    table.getColumn(table.getColumnName(column)).setMinWidth(120);
-                    table.getColumn(table.getColumnName(column)).setPreferredWidth(120);
+                    table.getColumn(table.getColumnName(column)).setMaxWidth(80);
+                    table.getColumn(table.getColumnName(column)).setMinWidth(80);
+                    table.getColumn(table.getColumnName(column)).setPreferredWidth(80);
                     break;
                 default:
                     break;

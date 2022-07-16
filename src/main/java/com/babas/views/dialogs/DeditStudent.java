@@ -60,6 +60,7 @@ public class DeditStudent extends JDialog {
     }
     private void initComponents(){
         setContentPane(contentPane);
+        setTitle("Nuevo estudiante");
         if(student.getId()!=null){
             setTitle("Editar estudiante");
             btnSave.setText("Guardar");

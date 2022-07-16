@@ -2,12 +2,9 @@ package com.babas.views.dialogs;
 
 import com.babas.models.Election;
 import com.babas.utilitiesTables.UtilitiesTables;
-import com.babas.utilitiesTables.buttonEditors.JButtonEditorStudent;
 import com.babas.utilitiesTables.tablesCellRendered.ElectionCellRendered;
-import com.babas.utilitiesTables.tablesCellRendered.StudentCellRendered;
 import com.babas.utilitiesTables.tablesModels.ElectionTableModel;
 import com.babas.views.frames.FramePrincipal;
-import com.babas.views.frames.FrameVotation;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -42,8 +39,8 @@ public class DstarVotation extends JDialog {
         if(table.getSelectedRow()!=-1){
             Election election=model.get(table.getSelectedRow());
             dispose();
-            FrameVotation frameVotation=new FrameVotation(election);
-            frameVotation.setVisible(true);
+            Dvotation dvotation =new Dvotation(election);
+            dvotation.setVisible(true);
         }else{
            JOptionPane.showMessageDialog(null,"Debe seleccionar una elección","ERROR",JOptionPane.INFORMATION_MESSAGE);
         }

@@ -2,7 +2,6 @@ package com.babas.views.frames;
 
 import com.babas.controllers.Elections;
 import com.babas.controllers.Students;
-import com.babas.custom.JPanelGradiente;
 import com.babas.custom.TabbedPane;
 import com.babas.models.Election;
 import com.babas.models.Student;
@@ -12,7 +11,6 @@ import com.babas.views.Tabs.TabStudents;
 import com.babas.views.dialogs.DstarVotation;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -23,7 +21,6 @@ public class FramePrincipal extends JFrame{
     private JButton btnVotation;
     private JButton btnElecctions;
     private JLabel btnNameSchool;
-    private JPanel paneContent;
     private JSplitPane splitPane;
     private TabbedPane tabbedPane;
     private JLabel lblDate;
@@ -97,9 +94,5 @@ public class FramePrincipal extends JFrame{
         students=Students.getTodos();
         elections= Elections.getTodos();
         electionsActives=Elections.getActives();
-    }
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-        paneContent=new JPanelGradiente(new Color(0xE12525),new Color(0xEAEA56));
     }
 }

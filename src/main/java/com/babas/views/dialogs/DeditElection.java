@@ -1,16 +1,12 @@
 package com.babas.views.dialogs;
 
 import com.babas.models.Election;
-import com.babas.models.Student;
 import com.babas.utilities.Babas;
-import com.babas.utilities.Utilities;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.utilitiesTables.tablesCellRendered.CandidateCellRendered;
 import com.babas.utilitiesTables.tablesModels.CandidatesTableModel;
 import com.babas.validators.ElectionValidator;
-import com.babas.validators.StudentValidator;
 import com.babas.views.frames.FramePrincipal;
-import com.babas.views.frames.FrameVotation;
 import jakarta.validation.ConstraintViolation;
 
 import javax.swing.*;
@@ -65,6 +61,7 @@ public class DeditElection extends JDialog{
         Set<ConstraintViolation<Election>> errors = ElectionValidator.loadViolations(election);
         if (errors.isEmpty()) {
             election.save();
+            election.getCandidates().forEach(Babas::save);
             if(update){
                 onCancel();
             }else{

@@ -16,7 +16,7 @@ public class Election extends Babas {
     @NotBlank(message = "Descripción")
     private String description;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "election")
     @NotEmpty(message = "Candidatos")
     private List<Candidate> candidates=new ArrayList<>();
 

@@ -12,6 +12,7 @@ public class Candidate extends Babas {
     private Student student;
 
     @ManyToOne
+    @JoinColumn(name="fk_election",nullable = false)
     private Election election;
 
     private Integer botos=0;
