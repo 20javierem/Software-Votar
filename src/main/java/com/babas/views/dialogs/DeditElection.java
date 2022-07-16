@@ -3,6 +3,8 @@ package com.babas.views.dialogs;
 import com.babas.models.Election;
 import com.babas.utilities.Babas;
 import com.babas.utilitiesTables.UtilitiesTables;
+import com.babas.utilitiesTables.buttonEditors.JButtonEditorCandidate;
+import com.babas.utilitiesTables.buttonEditors.JButtonEditorStudent;
 import com.babas.utilitiesTables.tablesCellRendered.CandidateCellRendered;
 import com.babas.utilitiesTables.tablesModels.CandidatesTableModel;
 import com.babas.validators.ElectionValidator;
@@ -102,6 +104,7 @@ public class DeditElection extends JDialog{
         txtDescription.setText(election.getDescription());
         model=new CandidatesTableModel(election.getCandidates());
         table.setModel(model);
+        table.getColumnModel().getColumn(model.getColumnCount() - 1).setCellEditor(new JButtonEditorCandidate(election,table));
         UtilitiesTables.headerNegrita(table);
         CandidateCellRendered.setCellRenderer(table);
     }
