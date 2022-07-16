@@ -16,6 +16,7 @@ public class TabStudents {
     private TabPane tabPane;
     private JButton btnNewProduct;
     private JTable table;
+    private JButton btnImport;
     private StudentTableModel model;
 
     public TabStudents() {
@@ -29,10 +30,16 @@ public class TabStudents {
     }
     private void initComponents(){
         tabPane.setTitle("Estudiantes");
+        tabPane.getActions().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UtilitiesTables.actualizarTabla(table);
+            }
+        });
         loadStudents();
     }
     private void loadNewStudent(){
-        DeditStudent deditStudent=new DeditStudent();
+        DeditStudent deditStudent=new DeditStudent(table);
         deditStudent.setVisible(true);
     }
     private void loadStudents(){

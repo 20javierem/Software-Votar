@@ -25,4 +25,10 @@ public class Elections extends Babas {
         todos = new Vector<>(session.createQuery(criteria).getResultList());
         return todos;
     }
+    public static Vector<Election> getActives(){
+        criteria = builder.createQuery(Election.class);
+        root=criteria.from(Election.class);
+        criteria.select(root).where(builder.isTrue(root.get("active")));
+        return new Vector<>(session.createQuery(criteria).getResultList());
+    }
 }

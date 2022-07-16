@@ -24,7 +24,7 @@ public class CandidateCellRendered extends DefaultTableCellRenderer {
             table.getColumnModel().getColumn(column).setMaxWidth(25);
             table.getColumnModel().getColumn(column).setMinWidth(25);
             table.getColumnModel().getColumn(column).setPreferredWidth(25);
-            return UtilitiesTables.isButonSelected(isSelected,"x16/eliminar.png",table);
+            return UtilitiesTables.isButonSelected(isSelected,"x24/cerrar.png",table);
         }else{
             JTextField componente=buscarTexto(null,value,column,this);
             switch(table.getColumnName(column)){

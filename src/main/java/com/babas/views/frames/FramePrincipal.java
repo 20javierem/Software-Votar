@@ -9,7 +9,7 @@ import com.babas.models.Student;
 import com.babas.utilities.Utilities;
 import com.babas.views.Tabs.TabElections;
 import com.babas.views.Tabs.TabStudents;
-import com.babas.views.Tabs.TabVotation;
+import com.babas.views.dialogs.DstarVotation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,9 +29,9 @@ public class FramePrincipal extends JFrame{
     private JLabel lblDate;
     private JButton btnStudents;
     private Election election;
-    private TabVotation tabVotation;
     public static List<Student> students;
     public static List<Election> elections;
+    public static List<Election> electionsActives;
     private TabStudents tabStudents;
     private TabElections tabElections;
 
@@ -40,7 +40,7 @@ public class FramePrincipal extends JFrame{
         btnVotation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadVotation();
+                loadStartElection();
             }
         });
         btnStudents.addActionListener(new ActionListener() {
@@ -78,26 +78,9 @@ public class FramePrincipal extends JFrame{
         }
         tabbedPane.setSelectedIndex(tabbedPane.indexOfTab(tabElections.getTabPane().getTitle()));
     }
-    public void loadVotation() {
-        String dni = JOptionPane.showInputDialog ( "Introduzca su DNI:" );
-        if(dni!=null){
-            if(!dni.isBlank()){
-                Student student= Students.getByDni(dni);
-                if(student!=null){
-                    if(tabVotation ==null){
-                        tabVotation =new TabVotation(election);
-                    }
-                    if (tabbedPane.indexOfTab(tabVotation.getTabPane().getTitle()) == -1) {
-                        tabVotation = new TabVotation(election);
-                        tabbedPane.addTab(tabVotation.getTabPane().getTitle(), tabVotation.getTabPane().getIcon(), tabVotation.getTabPane());
-
-                    }
-                    tabbedPane.setSelectedIndex(tabbedPane.indexOfTab(tabVotation.getTabPane().getTitle()));
-                }else{
-                    JOptionPane.showMessageDialog(this,"DNI no encontrado");
-                }
-            }
-        }
+    private void loadStartElection(){
+        DstarVotation dstarVotation=new DstarVotation();
+        dstarVotation.setVisible(true);
     }
     private void initComponents(){
         setContentPane(contentPane);
@@ -113,6 +96,7 @@ public class FramePrincipal extends JFrame{
     private void loadData(){
         students=Students.getTodos();
         elections= Elections.getTodos();
+        electionsActives=Elections.getActives();
     }
     private void createUIComponents() {
         // TODO: place custom component creation code here

@@ -26,7 +26,7 @@ public class TabbedPane extends JTabbedPane {
     private static GhostGlassPane s_glassPane = new GhostGlassPane();
     private boolean m_isDrawRect = false;
     private final Rectangle2D m_lineRect = new Rectangle2D.Double();
-    private final Color m_lineColor = new Color(0, 100, 255);
+    private final Color m_lineColor = new Color(0x3C7EC0);
     private TabAcceptor m_acceptor = null;
     private Double maxX=0.0;
     private Double maxY=0.0;
@@ -703,8 +703,8 @@ public class TabbedPane extends JTabbedPane {
 }
 
 class Cross extends JPanel {
-    private JLabel L;
-    private JButton B;
+    private JLabel title;
+    private JButton closeButton;
     private int size = 22;
     public Cross(final JTabbedPane jTabbedPane,String title){
         this(jTabbedPane,title,null);
@@ -716,35 +716,24 @@ class Cross extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
-        L = new JLabel(title+" ");
-        L.setForeground(new Color(0x3C7EC0));
-        L.setIcon(icon);
-        L.setIconTextGap(5);
-        Dimension d = new Dimension(20, 20);
-        B = new JButton();
-        B.setOpaque(false);
-        B.setFocusPainted(false);
-        B.setBorderPainted(false);
-        B.setBorder(BorderFactory.createEmptyBorder());
-        B.setPreferredSize(d);
-        B.setMaximumSize(d);
-        B.setMinimumSize(d);
-        B.setToolTipText("Cerrar Pestaña " + title);
-        B.setIcon(getImage("close.png"));
-        B.setRolloverIcon(getImage("close2.png"));
-        B.setPressedIcon(getImage("close3.png"));
-        B.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jTabbedPane.removeTabAt(jTabbedPane.indexOfTab(title));
-            }
-        });
-        add(L, gbc);
+        this.title = new JLabel(title+" ");
+        this.title.setForeground(new Color(0x3C7EC0));
+        this.title.setIcon(icon);
+        this.title.setIconTextGap(5);
+        closeButton = new JButton();
+        closeButton.setContentAreaFilled(false);
+        closeButton.setBorderPainted(false);
+        closeButton.setPreferredSize(new Dimension(20,20));
+        closeButton.setToolTipText("Cerrar Pestaña " + title);
+        closeButton.setIcon(getImage("close.png"));
+        closeButton.setRolloverIcon(getImage("close2.png"));
+        closeButton.setPressedIcon(getImage("close3.png"));
+        closeButton.addActionListener(e -> jTabbedPane.removeTabAt(jTabbedPane.indexOfTab(title)));
+        add(this.title, gbc);
         gbc.gridx++;
         gbc.weightx = 0;
-        add(B, gbc);
+        add(closeButton, gbc);
     }
-
     private ImageIcon getImage(String icono) {
         Image IMG = null;
         try {

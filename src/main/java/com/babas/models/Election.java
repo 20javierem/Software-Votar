@@ -1,10 +1,9 @@
 package com.babas.models;
 
 import com.babas.utilities.Babas;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +13,11 @@ public class Election extends Babas {
     @Id
     @GeneratedValue(generator = "increment")
     private Integer id;
-
+    @NotBlank(message = "Descripción")
     private String description;
 
-    @OneToMany(mappedBy = "election")
+    @ManyToMany
+    @NotEmpty(message = "Candidatos")
     private List<Candidate> candidates=new ArrayList<>();
 
     private boolean active;

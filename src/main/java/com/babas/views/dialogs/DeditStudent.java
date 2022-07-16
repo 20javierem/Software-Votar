@@ -1,6 +1,7 @@
 package com.babas.views.dialogs;
 
 import com.babas.models.Student;
+import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.validators.StudentValidator;
 import com.babas.views.frames.FramePrincipal;
 import jakarta.validation.ConstraintViolation;
@@ -17,12 +18,14 @@ public class DeditStudent extends JDialog {
     private JButton btnSave;
     private JButton btnHecho;
     private Student student;
+    private JTable table;
     private boolean update=false;
 
-    public DeditStudent(){
-        this(new Student());
+    public DeditStudent(JTable table){
+        this(new Student(),table);
     }
-    public DeditStudent(Student student){
+    public DeditStudent(Student student,JTable table){
+        this.table=table;
         this.student=student;
         initComponents();
         btnSave.addActionListener(new ActionListener() {
@@ -79,9 +82,14 @@ public class DeditStudent extends JDialog {
                 onCancel();
             }else{
                 FramePrincipal.students.add(student);
+                student=new Student();
+                loadStudent();
             }
         } else {
             StudentValidator.mostrarErrores(errors);
+        }
+        if(table!=null){
+            UtilitiesTables.actualizarTabla(table);
         }
     }
     private void loadStudent(){

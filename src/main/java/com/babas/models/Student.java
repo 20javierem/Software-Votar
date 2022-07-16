@@ -11,9 +11,9 @@ public class Student extends Babas {
     @Id
     @GeneratedValue(generator = "increment")
     private Integer id;
-    @NotBlank
+    @NotBlank(message = "Nombres y apellidos")
     private String name;
-    @NotBlank
+    @NotBlank(message = "DNI")
     private String dni;
 
     private String image;

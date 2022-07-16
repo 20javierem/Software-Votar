@@ -1,9 +1,9 @@
 package com.babas.utilitiesTables.buttonEditors;
 
-import com.babas.models.Student;
+import com.babas.models.Election;
 import com.babas.utilitiesTables.UtilitiesTables;
-import com.babas.utilitiesTables.tablesModels.StudentTableModel;
-import com.babas.views.dialogs.DeditStudent;
+import com.babas.utilitiesTables.tablesModels.ElectionTableModel;
+import com.babas.views.dialogs.DeditElection;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
@@ -11,11 +11,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class JButtonEditorStudent extends AbstractCellEditor implements TableCellEditor, ActionListener {
+public class JButtonEditorElection extends AbstractCellEditor implements TableCellEditor, ActionListener {
     private JButtonAction button;
     private JTable table;
 
-    public JButtonEditorStudent(JTable table) {
+    public JButtonEditorElection(JTable table) {
         this.table=table;
         button=new JButtonAction("x16/editar.png");
         iniciarComponentes();
@@ -26,9 +26,9 @@ public class JButtonEditorStudent extends AbstractCellEditor implements TableCel
     }
     public void actionPerformed(ActionEvent e) {
         if(table.getSelectedRow()!=-1){
-            Student student=((StudentTableModel) table.getModel()).get(table.convertRowIndexToModel(table.getSelectedRow()));
-            DeditStudent deditStudent=new DeditStudent(student,table);
-            deditStudent.setVisible(true);
+            Election election=((ElectionTableModel) table.getModel()).get(table.convertRowIndexToModel(table.getSelectedRow()));
+            DeditElection deditElection=new DeditElection(election,table);
+            deditElection.setVisible(true);
             UtilitiesTables.actualizarTabla(table);
         }
     }

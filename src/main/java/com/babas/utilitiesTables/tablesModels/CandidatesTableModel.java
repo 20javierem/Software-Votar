@@ -43,7 +43,7 @@ public class CandidatesTableModel extends AbstractTableModel {
             case 2:
                 return candidate.getBotos();
             default:
-                return new JButtonAction("x16/editar.png");
+                return new JButtonAction("x24/cerrar.png");
         }
     }
     public Candidate get(int index){

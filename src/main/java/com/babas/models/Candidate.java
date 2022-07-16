@@ -14,7 +14,7 @@ public class Candidate extends Babas {
     @ManyToOne
     private Election election;
 
-    private Integer botos;
+    private Integer botos=0;
 
     public Integer getId() {
         return id;
