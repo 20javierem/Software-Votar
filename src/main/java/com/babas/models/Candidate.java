@@ -2,6 +2,10 @@ package com.babas.models;
 
 import com.babas.utilities.Babas;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Candidate extends Babas {
@@ -14,10 +18,10 @@ public class Candidate extends Babas {
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name="fk_election",nullable = false)
     private Election election;
 
-    private Integer botos=0;
+    @OneToMany(mappedBy = "candidate")
+    private List<Vote> votes=new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -35,19 +39,19 @@ public class Candidate extends Babas {
         this.student = student;
     }
 
-    public Integer getBotos() {
-        return botos;
-    }
-
-    public void setBotos(Integer botos) {
-        this.botos = botos;
-    }
-
     public Election getElection() {
         return election;
     }
 
     public void setElection(Election election) {
         this.election = election;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
     }
 }

@@ -1,6 +1,8 @@
 package com.babas.views.dialogs;
 
+import com.babas.controllers.Students;
 import com.babas.models.Student;
+import com.babas.utilities.Utilities;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.validators.StudentValidator;
 import com.babas.views.frames.FramePrincipal;
@@ -78,13 +80,18 @@ public class DeditStudent extends JDialog {
         student.setName(txtName.getText());
         Set<ConstraintViolation<Student>> errors = StudentValidator.loadViolations(student);
         if (errors.isEmpty()) {
-            student.save();
             if(update){
+                student.save();
                 onCancel();
             }else{
-                FramePrincipal.students.add(student);
-                student=new Student();
-                loadStudent();
+                if(Students.getByDni(student.getDni())==null){
+                    student.save();
+                    FramePrincipal.students.add(student);
+                    student=new Student();
+                    loadStudent();
+                }else{
+                    Utilities.sendNotification("Error","Estudiante ya registrado", TrayIcon.MessageType.ERROR);
+                }
             }
         } else {
             StudentValidator.mostrarErrores(errors);

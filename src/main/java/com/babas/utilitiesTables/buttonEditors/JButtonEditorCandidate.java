@@ -34,7 +34,9 @@ public class JButtonEditorCandidate extends AbstractCellEditor implements TableC
            int siono=JOptionPane.showOptionDialog(null,"Está seguro de eliminar al candidato?","Eliminar candidato",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,  null,new Object[] { "Si", "No"},"Si");
             if(siono==0){
                 election.getCandidates().remove(candidate);
-                candidate.delete();
+                candidate.setElection(null);
+                candidate.save();
+                election.getCandidatesChanges().add(candidate);
             }
             UtilitiesTables.actualizarTabla(table);
         }

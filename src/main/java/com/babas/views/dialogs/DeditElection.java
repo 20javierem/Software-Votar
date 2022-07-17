@@ -51,8 +51,15 @@ public class DeditElection extends JDialog{
             }
         });
     }
+    private void onSave(){
+        dispose();
+    }
     private void onCancel(){
         if(election.getId()!=null){
+            election.getCandidatesChanges().forEach(candidate -> {
+                candidate.setElection(election);
+                candidate.save();
+            });
             election.refresh();
         }
         dispose();
@@ -65,7 +72,7 @@ public class DeditElection extends JDialog{
             election.save();
             election.getCandidates().forEach(Babas::save);
             if(update){
-                onCancel();
+                onSave();
             }else{
                 FramePrincipal.electionsActives.add(election);
                 FramePrincipal.elections.add(election);
@@ -88,8 +95,9 @@ public class DeditElection extends JDialog{
     }
     private void initComponents(){
         setContentPane(contentPane);
+        setTitle("Nueva elección");
         if(election.getId()!=null){
-            setTitle("Editar estudiante");
+            setTitle("Editar elección");
             btnSave.setText("Guardar");
             btnHecho.setText("Cancelar");
             update=true;
@@ -101,6 +109,7 @@ public class DeditElection extends JDialog{
         setLocationRelativeTo(null);
     }
     private void loadElection(){
+        election.getCandidatesChanges().clear();
         txtDescription.setText(election.getDescription());
         model=new CandidatesTableModel(election.getCandidates());
         table.setModel(model);

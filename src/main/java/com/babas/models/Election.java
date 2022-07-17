@@ -22,6 +22,12 @@ public class Election extends Babas {
     @NotEmpty(message = "Candidatos")
     private List<Candidate> candidates=new ArrayList<>();
 
+    @OneToMany(mappedBy = "election")
+    private List<Vote> votes=new ArrayList<>();
+
+    @Transient
+    private List<Candidate> candidatesChanges=new ArrayList<>();
+
     private boolean active;
 
     public Integer getId() {
@@ -54,5 +60,21 @@ public class Election extends Babas {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
+
+    public List<Candidate> getCandidatesChanges() {
+        return candidatesChanges;
+    }
+
+    public void setCandidatesChanges(List<Candidate> candidatesChanges) {
+        this.candidatesChanges = candidatesChanges;
     }
 }

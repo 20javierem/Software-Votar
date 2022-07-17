@@ -41,7 +41,7 @@ public class CandidatesTableModel extends AbstractTableModel {
             case 1:
                 return candidate.getStudent().getName();
             case 2:
-                return candidate.getBotos();
+                return candidate.getVotes().size();
             default:
                 return new JButtonAction("x24/cerrar.png");
         }
