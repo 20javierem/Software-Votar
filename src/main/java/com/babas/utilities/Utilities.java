@@ -74,18 +74,12 @@ public class Utilities {
     }
 
     public static void updateComponents(JComponent parent){
-        Font font;
+        Font font=parent.getFont();
         parent.updateUI();
+        parent.setFont(font);
         for(Component component:parent.getComponents()){
             if(component instanceof JComponent){
-                font=null;
-                if(component instanceof JLabel){
-                    font=component.getFont();
-                }
                 updateComponents((JComponent) component);
-                if(font!=null){
-                    component.setFont(font);
-                }
                 if(component instanceof JTable){
                     UtilitiesTables.actualizarTabla((JTable) component);
                 }
