@@ -9,7 +9,7 @@ import java.util.Properties;
 public class Propiedades {
     private Properties properties;
     private FileInputStream inputStream;
-    private File carpeta = new File(System.getProperty("user.home") + "/.Devel");
+    private File carpeta = new File(System.getProperty("user.home") + "/.Votation");
     private File archivo;
 
     public Propiedades(){
@@ -34,11 +34,8 @@ public class Propiedades {
             inputStream.close();
             setKey("2QXDJJUCSSUW2GC");
             guardar();
-            setUsuario("");
-            setActualizado(true);
-            setContraseña("");
-            setEstadoImprecion("preguntar");
-            setTema("genome");
+            setPassword("AAABBBCCC");
+            setTema("claro");
             guardar();
         }else{
             inputStream = new FileInputStream(archivo.getAbsolutePath());
@@ -58,41 +55,21 @@ public class Propiedades {
             e.printStackTrace();
         }
     }
-    public void setUsuario(String usuario) {
-        properties.put("usuario", usuario);
+    public void setPasword(){
+
     }
-    public String getUsuario() {
-        return properties.getProperty("usuario");
+
+    public String getPassword(){
+        return Utilities.desencriptar(properties.getProperty("password"));
     }
-    public void setActualizado(boolean estado) {
-        properties.put("Actualizado", String.valueOf(estado));
-    }
-    public boolean getActualizado() {
-        return Boolean.parseBoolean(properties.getProperty("Actualizado"));
-    }
-    public void setContraseña(String contraseña){
-        properties.put("contrasena",contraseña);
-    }
-    public void setEstadoImprecion(String preguntar){
-        properties.put("estadoImprimir",preguntar);
-    }
-    public String getEstadoImprecion() {
-        return properties.getProperty("estadoImprimir");
-    }
-    public String getContraseña(){
-        return properties.getProperty("contrasena");
+    public void setPassword(String password){
+        properties.put("password",Utilities.encriptar(password));
     }
     public String getKey() {
         return properties.getProperty("key");
     }
     public void setKey(String key){
         properties.put("key",key);
-    }
-    public void setTokenApiPeru(String token){
-        properties.put("TokenApiPeru",token);
-    }
-    public String getTokenApiperu() {
-        return properties.getProperty("TokenApiPeru");
     }
     public void setTema(String tema){
         properties.put("tema", tema);

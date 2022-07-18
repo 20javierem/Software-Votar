@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CandidatesTableModel extends AbstractTableModel {
-    private String[] columnNames = {"DNI","CANDIDATO","VOTOS",""};
+    private String[] columnNames = {"DNI","ESTUDIANTE","VOTOS",""};
     private Class[] m_colTypes = {Integer.class,String.class, String.class, JButton.class};
     private List<Candidate> vector;
 

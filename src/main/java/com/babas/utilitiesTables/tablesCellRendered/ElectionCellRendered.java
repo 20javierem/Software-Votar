@@ -35,6 +35,8 @@ public class ElectionCellRendered extends DefaultTableCellRenderer {
                     table.getColumn(table.getColumnName(column)).setPreferredWidth(40);
                     break;
                 case "CANDIDATOS":
+                case "TOTAL VOTOS":
+                case "VOTOS BLANCOS":
                     componente.setHorizontalAlignment(SwingConstants.CENTER);
                     table.getColumn(table.getColumnName(column)).setMaxWidth(100);
                     table.getColumn(table.getColumnName(column)).setMinWidth(100);

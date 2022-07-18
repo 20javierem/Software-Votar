@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class JButtonAction extends JButton {
-    Color selected= Colors.selectedRow1;
 
     public JButtonAction(String icon, String texto) {
         setIcon(new ImageIcon(App.class.getResource("Icons/"+icon)));
@@ -33,7 +32,7 @@ public class JButtonAction extends JButton {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                setBackground(selected);
+                setBackground(new JTable().getSelectionBackground());
             }
         });
     }

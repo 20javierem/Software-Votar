@@ -16,5 +16,6 @@
         <mapping class="com.babas.models.Student" />
         <mapping class="com.babas.models.Election" />
         <mapping class="com.babas.models.Vote" />
+        <mapping class="com.babas.models.School"/>
     </session-factory>
 </hibernate-configuration>

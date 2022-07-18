@@ -1,6 +1,7 @@
 package com.babas.utilities;
 
 import com.babas.App;
+import com.babas.utilitiesTables.UtilitiesTables;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import net.sf.jasperreports.engine.*;
@@ -57,10 +58,10 @@ public class Utilities {
     public static JSpinner.NumberEditor getEditorPrice(JSpinner spinner) {
         return new JSpinner.NumberEditor(spinner, "###,###,###.##");
     }
-    public static void tema(String tema){
+    public static void setTema(String tema){
         try {
             switch (tema){
-                case "genome":
+                case "Claro":
                     UIManager.setLookAndFeel(new FlatIntelliJLaf());
                     break;
                 default:
@@ -70,7 +71,26 @@ public class Utilities {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+    }
 
+    public static void updateComponents(JComponent parent){
+        Font font;
+        parent.updateUI();
+        for(Component component:parent.getComponents()){
+            if(component instanceof JComponent){
+                font=null;
+                if(component instanceof JLabel){
+                    font=component.getFont();
+                }
+                updateComponents((JComponent) component);
+                if(font!=null){
+                    component.setFont(font);
+                }
+                if(component instanceof JTable){
+                    UtilitiesTables.actualizarTabla((JTable) component);
+                }
+            }
+        }
     }
     public static Date getDate(Date date){
         Calendar calendar=Calendar.getInstance();

@@ -8,8 +8,8 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class ElectionTableModel extends AbstractTableModel {
-    private String[] columnNames = {"ID","DESCRIPCIÓN","ESTADO","CANDIDATOS",""};
-    private Class[] m_colTypes = {Integer.class,String.class, String.class,Integer.class, JButton.class};
+    private String[] columnNames = {"ID","DESCRIPCIÓN","TOTAL VOTOS","VOTOS BLANCOS","ESTADO","CANDIDATOS",""};
+    private Class[] m_colTypes = {Integer.class, String.class, Integer.class, Integer.class, String.class, Integer.class, JButton.class};
     private List<Election> vector;
 
     public ElectionTableModel(List<Election> vector){
@@ -40,8 +40,12 @@ public class ElectionTableModel extends AbstractTableModel {
             case 1:
                 return election.getDescription();
             case 2:
-                return election.isActive()?"ACTIVA":"TERMINADA";
+                return election.getTotalVotes().size();
             case 3:
+                return election.getVotosBlank().size();
+            case 4:
+                return election.isActive()?"ACTIVA":"TERMINADA";
+            case 5:
                 return election.getCandidates().size();
             default:
                 return new JButtonAction("x16/editar.png");

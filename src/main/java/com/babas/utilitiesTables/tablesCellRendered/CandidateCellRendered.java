@@ -35,10 +35,11 @@ public class CandidateCellRendered extends DefaultTableCellRenderer {
                     table.getColumn(table.getColumnName(column)).setPreferredWidth(40);
                     break;
                 case "VOTOS":
+                case "DNI":
                     componente.setHorizontalAlignment(SwingConstants.CENTER);
-                    table.getColumn(table.getColumnName(column)).setMaxWidth(100);
-                    table.getColumn(table.getColumnName(column)).setMinWidth(100);
-                    table.getColumn(table.getColumnName(column)).setPreferredWidth(100);
+                    table.getColumn(table.getColumnName(column)).setMaxWidth(90);
+                    table.getColumn(table.getColumnName(column)).setMinWidth(90);
+                    table.getColumn(table.getColumnName(column)).setPreferredWidth(90);
                     break;
                 default:
                     break;

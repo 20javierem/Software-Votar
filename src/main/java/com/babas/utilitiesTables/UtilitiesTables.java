@@ -4,6 +4,7 @@ import com.babas.utilities.Utilities;
 import com.babas.utilitiesTables.buttonEditors.JButtonAction;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -15,11 +16,9 @@ import java.util.Map;
 public class UtilitiesTables {
 
     public static void actualizarTabla(JTable tabla){
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                tabla.updateUI();
-                UtilitiesTables.headerNegrita(tabla);
-            }
+        SwingUtilities.invokeLater(() -> {
+            tabla.updateUI();
+            UtilitiesTables.headerNegrita(tabla);
         });
     }
 
@@ -52,7 +51,7 @@ public class UtilitiesTables {
         }
         if(listaFiltros!=null){
             Highlighter hilit = new DefaultHighlighter();
-            Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(new Color(0x95C0E8));
+            Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(componente.getSelectionColor());
             componente.setHighlighter(hilit);
             if(listaFiltros.get(column)!=null){
                 String s = listaFiltros.get(column);

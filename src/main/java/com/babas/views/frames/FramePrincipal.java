@@ -1,38 +1,44 @@
 package com.babas.views.frames;
 
 import com.babas.controllers.Elections;
+import com.babas.controllers.Schools;
 import com.babas.controllers.Students;
 import com.babas.custom.TabbedPane;
 import com.babas.models.Election;
+import com.babas.models.School;
 import com.babas.models.Student;
+import com.babas.utilities.Propiedades;
 import com.babas.utilities.Utilities;
 import com.babas.views.Tabs.TabElections;
 import com.babas.views.Tabs.TabStudents;
+import com.babas.views.dialogs.DSettings;
 import com.babas.views.dialogs.DstarVotation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import java.util.List;
 
 public class FramePrincipal extends JFrame{
     private JPanel contentPane;
     private JButton btnVotation;
     private JButton btnElecctions;
-    private JLabel btnNameSchool;
+    private JLabel lblNameSchool;
     private JSplitPane splitPane;
     private TabbedPane tabbedPane;
-    private JLabel lblDate;
     private JButton btnStudents;
-    private Election election;
+    private JButton btnSettings;
     public static List<Student> students;
     public static List<Election> elections;
     public static List<Election> electionsActives;
+    public static School school;
     private TabStudents tabStudents;
     private TabElections tabElections;
+    private Propiedades propiedades;
 
-    public FramePrincipal(){
+    public FramePrincipal(Propiedades propiedades){
+        this.propiedades=propiedades;
         initComponents();
         btnVotation.addActionListener(new ActionListener() {
             @Override
@@ -52,6 +58,17 @@ public class FramePrincipal extends JFrame{
                 loadElections();
             }
         });
+        btnSettings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadSettings();
+            }
+        });
+    }
+    private void loadSettings(){
+        DSettings dSettings =new DSettings(propiedades,this);
+        dSettings.setVisible(true);
+        loadSchool();
     }
     public void loadStudents(){
         if(tabStudents ==null){
@@ -76,23 +93,36 @@ public class FramePrincipal extends JFrame{
         tabbedPane.setSelectedIndex(tabbedPane.indexOfTab(tabElections.getTabPane().getTitle()));
     }
     private void loadStartElection(){
-        DstarVotation dstarVotation=new DstarVotation();
-        dstarVotation.setVisible(true);
+        if(!electionsActives.isEmpty()){
+            DstarVotation dstarVotation=new DstarVotation(propiedades,this);
+            dstarVotation.setVisible(true);
+        }else{
+            Utilities.sendNotification("MENSAJE","No se encontraron elecciones activas", TrayIcon.MessageType.INFO);
+        }
+
     }
     private void initComponents(){
         setContentPane(contentPane);
         setTitle("Software-votación");
+        loadData();
+        loadSchool();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
         pack();
         setLocationRelativeTo(null);
-        election=new Election();
-        lblDate.setText(Utilities.formatoFechaHora.format(new Date()));
-        loadData();
+    }
+    public void loadSchool(){
+        lblNameSchool.setText(school.getName());
     }
     private void loadData(){
         students=Students.getTodos();
         elections= Elections.getTodos();
         electionsActives=Elections.getActives();
+        school= Schools.get(1);
+        if(school==null){
+            school=new School();
+            school.setName("");
+            school.save();
+        }
     }
 }

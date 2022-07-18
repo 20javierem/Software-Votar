@@ -13,16 +13,16 @@ public class Babas {
     public static Session session;
     protected static CriteriaBuilder builder;
     public static boolean state;
-
-    private static void buildSessionFactory() {
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        session = sessionFactory.openSession();
-        builder = session.getCriteriaBuilder();
-    }
+    private static SessionFactory sessionFactory;
     public static void initialize() {
         buildSessionFactory();
         state=true;
+    }
+    private static void buildSessionFactory() {
+        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+        sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+        session = sessionFactory.openSession();
+        builder = session.getCriteriaBuilder();
     }
 
     public void refresh(){

@@ -6,25 +6,33 @@ import com.babas.controllers.Votes;
 import com.babas.custom.FondoPanel;
 import com.babas.models.Election;
 import com.babas.models.Student;
-import com.babas.models.Vote;
+import com.babas.utilities.Propiedades;
 import com.babas.utilities.Utilities;
+import com.babas.views.frames.FramePrincipal;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Dvotation extends JDialog {
     private JPanel contentPane;
-    private JLabel btnNameSchool;
+    private JLabel lblNameSchool;
     private JButton btnVotation;
     private JLabel lblDescriptionElection;
     private JPanel paneVotation;
+    private JButton btnEndVotation;
     private JLabel lblImage;
     private Election election;
+    private Propiedades propiedades;
+    private FramePrincipal framePrincipal;
 
-    public Dvotation(Election election){
+    public Dvotation(Election election,Propiedades propiedades,FramePrincipal framePrincipal){
         this.election=election;
+        this.propiedades=propiedades;
+        this.framePrincipal=framePrincipal;
         initComponents();
         btnVotation.addActionListener(new ActionListener() {
             @Override
@@ -32,6 +40,41 @@ public class Dvotation extends JDialog {
                 startVote();
             }
         });
+        btnEndVotation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                endElection();
+            }
+        });
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                onDispose();
+            }
+        });
+    }
+    private void onDispose(){
+        framePrincipal.dispose();
+        dispose();
+    }
+    private void endElection(){
+        String password=JOptionPane.showInputDialog(null,"TERMINAR ELECCIÓN","Ingrese la contraseña",JOptionPane.PLAIN_MESSAGE);
+        if(password!=null){
+            if(!password.isBlank()){
+                if(propiedades.getPassword().equals(password)){
+                    election.setActive(false);
+                    election.save();
+                    FramePrincipal.electionsActives.remove(election);
+                    dispose();
+                    framePrincipal.setVisible(true);
+                }else{
+                    Utilities.sendNotification("ERROR","La constraseña es incorrecta", TrayIcon.MessageType.ERROR);
+                }
+            }else{
+                Utilities.sendNotification("ERROR","Ingrese la contraseña", TrayIcon.MessageType.ERROR);
+                endElection();
+            }
+        }
     }
     private void startVote(){
         String dni=JOptionPane.showInputDialog(null,"DNI","Ingrese su dni",JOptionPane.PLAIN_MESSAGE);
@@ -44,12 +87,14 @@ public class Dvotation extends JDialog {
                         dVote.setVisible(true);
                     }else{
                         Utilities.sendNotification("Error","El estudiante ya realizó el voto", TrayIcon.MessageType.INFO);
+                        startVote();
                     }
                 }else{
+                    Utilities.sendNotification("Error","No se encontró al estudiante", TrayIcon.MessageType.WARNING);
                     startVote();
-                    Utilities.sendNotification("Error","No se encontró al estudiante", TrayIcon.MessageType.ERROR);
                 }
             }else{
+                Utilities.sendNotification("Error","Ingrese el dni del estudiante", TrayIcon.MessageType.ERROR);
                 startVote();
             }
         }
@@ -57,6 +102,8 @@ public class Dvotation extends JDialog {
     private void initComponents(){
         setContentPane(contentPane);
         setResizable(false);
+        getRootPane().setDefaultButton(btnVotation);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         loadElection();
         setModal(true);
         pack();

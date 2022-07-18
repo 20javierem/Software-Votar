@@ -51,7 +51,7 @@ public class DVote extends JDialog{
     private void initComponents(){
         vote=new Vote();
         student.getVotes().add(vote);
-        election.getVotes().add(vote);
+        election.getTotalVotes().add(vote);
         vote.setElection(election);
         vote.setStudent(student);
         setTitle("Voto");

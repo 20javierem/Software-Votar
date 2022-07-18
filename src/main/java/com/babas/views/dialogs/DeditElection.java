@@ -12,8 +12,7 @@ import com.babas.views.frames.FramePrincipal;
 import jakarta.validation.ConstraintViolation;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Set;
 
 public class DeditElection extends JDialog{
@@ -23,6 +22,8 @@ public class DeditElection extends JDialog{
     private JButton btnAddCandidates;
     private JButton btnSave;
     private JButton btnHecho;
+    private JLabel lblVotesBlank;
+    private JLabel lblTotalVotes;
     private Election election;
     private boolean update=false;
     private JTable tableElection;
@@ -50,6 +51,17 @@ public class DeditElection extends JDialog{
                 save();
             }
         });
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                onCancel();
+            }
+        });
+        contentPane.registerKeyboardAction(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onCancel();
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
     private void onSave(){
         dispose();
@@ -111,10 +123,18 @@ public class DeditElection extends JDialog{
     private void loadElection(){
         election.getCandidatesChanges().clear();
         txtDescription.setText(election.getDescription());
+        lblTotalVotes.setText(String.valueOf(election.getTotalVotes().size()));
+        lblVotesBlank.setText(String.valueOf(election.getVotosBlank().size()));
         model=new CandidatesTableModel(election.getCandidates());
         table.setModel(model);
         table.getColumnModel().getColumn(model.getColumnCount() - 1).setCellEditor(new JButtonEditorCandidate(election,table));
         UtilitiesTables.headerNegrita(table);
         CandidateCellRendered.setCellRenderer(table);
+        if(!election.isActive()){
+            table.removeColumn(table.getColumn(""));
+            btnAddCandidates.setVisible(false);
+            txtDescription.setEditable(false);
+            txtDescription.setBorder(null);
+        }
     }
 }

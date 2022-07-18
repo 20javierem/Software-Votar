@@ -4,6 +4,7 @@ import com.babas.App;
 import com.babas.models.Candidate;
 import com.babas.models.Election;
 import com.babas.models.Student;
+import com.babas.utilities.Utilities;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.utilitiesTables.buttonEditors.JButtonEditorStudent;
 import com.babas.utilitiesTables.tablesCellRendered.StudentCellRendered;
@@ -13,10 +14,7 @@ import com.babas.views.frames.FramePrincipal;
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.*;
 import java.util.List;
 
@@ -57,6 +55,17 @@ public class DaddCandidates extends JDialog{
                 filter();
             }
         });
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                onCancel();
+            }
+        });
+        contentPane.registerKeyboardAction(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onCancel();
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
     private void onCancel(){
         dispose();
@@ -64,6 +73,8 @@ public class DaddCandidates extends JDialog{
     private void addCandidate(){
         if(table.getSelectedRow()!=-1){
             verifyCandidate(model.get(table.convertRowIndexToModel(table.getSelectedRow())));
+        }else{
+            Utilities.sendNotification("ERROR","Seleccione un estudiante", TrayIcon.MessageType.ERROR);
         }
     }
     private void verifyCandidate(Student student){
@@ -84,6 +95,7 @@ public class DaddCandidates extends JDialog{
     }
     private void initComponents(){
         setContentPane(contentPane);
+        getRootPane().setDefaultButton(btnAddCandidate);
         loadStudents();
         setModal(true);
         pack();
