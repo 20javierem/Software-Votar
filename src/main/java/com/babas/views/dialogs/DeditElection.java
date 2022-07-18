@@ -12,6 +12,7 @@ import com.babas.views.frames.FramePrincipal;
 import jakarta.validation.ConstraintViolation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.Set;
 
@@ -30,6 +31,7 @@ public class DeditElection extends JDialog{
     private CandidatesTableModel model;
 
     public DeditElection(Election election,JTable tableElection){
+        super((Frame) tableElection.getRootPane().getParent(),"Nueva elección",true);
         this.election=election;
         this.tableElection=tableElection;
         initComponents();
@@ -107,7 +109,6 @@ public class DeditElection extends JDialog{
     }
     private void initComponents(){
         setContentPane(contentPane);
-        setTitle("Nueva elección");
         if(election.getId()!=null){
             setTitle("Editar elección");
             btnSave.setText("Guardar");
@@ -116,7 +117,6 @@ public class DeditElection extends JDialog{
         }
         loadElection();
         getRootPane().setDefaultButton(btnSave);
-        setModal(true);
         pack();
         setLocationRelativeTo(null);
     }

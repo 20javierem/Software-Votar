@@ -26,7 +26,9 @@ public class DeditStudent extends JDialog {
     public DeditStudent(JTable table){
         this(new Student(),table);
     }
+
     public DeditStudent(Student student,JTable table){
+        super((Frame) table.getRootPane().getParent(),"Nuevo estudiante",true);
         this.table=table;
         this.student=student;
         initComponents();
@@ -62,7 +64,6 @@ public class DeditStudent extends JDialog {
     }
     private void initComponents(){
         setContentPane(contentPane);
-        setTitle("Nuevo estudiante");
         if(student.getId()!=null){
             setTitle("Editar estudiante");
             btnSave.setText("Guardar");
@@ -71,7 +72,6 @@ public class DeditStudent extends JDialog {
         }
         loadStudent();
         getRootPane().setDefaultButton(btnSave);
-        setModal(true);
         pack();
         setLocationRelativeTo(null);
     }

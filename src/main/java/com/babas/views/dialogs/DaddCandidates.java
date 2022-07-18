@@ -34,6 +34,7 @@ public class DaddCandidates extends JDialog{
     private RowFilter filtroand;
 
     public DaddCandidates(Election election,JTable tableElection){
+        super((JDialog) tableElection.getRootPane().getParent(),"Añadir Candidatos",true);
         this.election=election;
         this.tableElection=tableElection;
         initComponents();
@@ -97,7 +98,6 @@ public class DaddCandidates extends JDialog{
         setContentPane(contentPane);
         getRootPane().setDefaultButton(btnAddCandidate);
         loadStudents();
-        setModal(true);
         pack();
         setLocationRelativeTo(null);
         loadPlaceHolders();

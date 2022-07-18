@@ -10,7 +10,7 @@ public class ViewCandidate {
     private JPanel contentPane;
     private JPanel panel1;
     private JLabel lblImage;
-    private JRadioButton btnSelected;
+    private JCheckBox btnSelected;
     private JLabel lblCandidate;
     private JLabel lblDni;
     private Candidate candidate;
@@ -27,7 +27,7 @@ public class ViewCandidate {
         return contentPane;
     }
 
-    public JRadioButton getBtnSelected(){
+    public JCheckBox getBtnSelected(){
         return btnSelected;
     }
     public Candidate getCandidate(){

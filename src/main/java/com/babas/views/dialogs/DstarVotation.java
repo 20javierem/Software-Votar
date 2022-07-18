@@ -8,6 +8,7 @@ import com.babas.utilitiesTables.tablesModels.ElectionTableModel;
 import com.babas.views.frames.FramePrincipal;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class DstarVotation extends JDialog {
@@ -18,7 +19,9 @@ public class DstarVotation extends JDialog {
     private ElectionTableModel model;
     private Propiedades propiedades;
     private FramePrincipal framePrincipal;
-    public DstarVotation(Propiedades propiedades,FramePrincipal framePrincipal){
+
+    public DstarVotation(Propiedades propiedades, FramePrincipal framePrincipal){
+        super(framePrincipal,"Iniciar Elección",true);
         this.propiedades=propiedades;
         this.framePrincipal=framePrincipal;
         initComponents();
@@ -62,12 +65,11 @@ public class DstarVotation extends JDialog {
     }
 
     private void initComponents(){
-        setTitle("Iniciar elecciones");
         setContentPane(contentPane);
+        getRootPane().setDefaultButton(btnStartVotation);
         loadElections();
         pack();
-        setModal(true);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(framePrincipal);
     }
     private void loadElections(){
         model=new ElectionTableModel(FramePrincipal.electionsActives);

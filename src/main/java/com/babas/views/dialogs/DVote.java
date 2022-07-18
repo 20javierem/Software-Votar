@@ -22,8 +22,11 @@ public class DVote extends JDialog{
     private Vote vote;
     private Student student;
     private List<ViewCandidate> viewCandidates=new ArrayList<>();
+    private Dvotation dvotation;
 
-    public DVote(Election election,Student student){
+    public DVote(Dvotation dvotation,Election election,Student student){
+        super(dvotation,election.getDescription(),true);
+        this.dvotation=dvotation;
         this.election=election;
         this.student=student;
         initComponents();
@@ -54,12 +57,10 @@ public class DVote extends JDialog{
         election.getTotalVotes().add(vote);
         vote.setElection(election);
         vote.setStudent(student);
-        setTitle("Voto");
         setContentPane(contentPane);
         loadTable();
-        setModal(true);
         pack();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(dvotation);
     }
 
     private void loadTable(){

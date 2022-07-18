@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Dvotation extends JDialog {
+public class Dvotation extends JFrame {
     private JPanel contentPane;
     private JLabel lblNameSchool;
     private JButton btnVotation;
@@ -55,7 +55,6 @@ public class Dvotation extends JDialog {
     }
     private void onDispose(){
         framePrincipal.dispose();
-        dispose();
     }
     private void endElection(){
         String password=JOptionPane.showInputDialog(null,"TERMINAR ELECCIÓN","Ingrese la contraseña",JOptionPane.PLAIN_MESSAGE);
@@ -77,13 +76,13 @@ public class Dvotation extends JDialog {
         }
     }
     private void startVote(){
-        String dni=JOptionPane.showInputDialog(null,"DNI","Ingrese su dni",JOptionPane.PLAIN_MESSAGE);
+        String dni=JOptionPane.showInputDialog(this,"DNI","Ingrese su dni",JOptionPane.PLAIN_MESSAGE);
         if(dni!=null){
             if(!dni.isBlank()){
                 Student student= Students.getByDni(dni);
                 if(student!=null){
                     if(Votes.getVote(student,election)==null){
-                        DVote dVote=new DVote(election,student);
+                        DVote dVote=new DVote(this,election,student);
                         dVote.setVisible(true);
                     }else{
                         Utilities.sendNotification("Error","El estudiante ya realizó el voto", TrayIcon.MessageType.INFO);
@@ -101,11 +100,11 @@ public class Dvotation extends JDialog {
     }
     private void initComponents(){
         setContentPane(contentPane);
+        setTitle(election.getDescription());
         setResizable(false);
         getRootPane().setDefaultButton(btnVotation);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         loadElection();
-        setModal(true);
         pack();
         setLocationRelativeTo(null);
     }

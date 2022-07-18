@@ -7,8 +7,7 @@ import com.babas.views.frames.FramePrincipal;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class DSettings extends JDialog{
     private JPanel contentPane;
@@ -23,7 +22,9 @@ public class DSettings extends JDialog{
     private JTextField txtPassword;
     private Propiedades propiedades;
     private FramePrincipal framePrincipal;
+
     public DSettings(Propiedades propiedades,FramePrincipal framePrincipal){
+        super(framePrincipal,"Condiguraciones",true);
         this.propiedades=propiedades;
         this.framePrincipal=framePrincipal;
         initComponents();
@@ -45,6 +46,17 @@ public class DSettings extends JDialog{
                 aplyTheme();
             }
         });
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                onCancel();
+            }
+        });
+        contentPane.registerKeyboardAction(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onCancel();
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
     private void aplyTheme(){
         Utilities.setTema(cbbTema.getSelectedItem().toString());
@@ -54,10 +66,8 @@ public class DSettings extends JDialog{
 
     private void initComponents(){
         setContentPane(contentPane);
-        setTitle("Condiguraciones");
         getRootPane().setDefaultButton(btnSave);
         loadSettings();
-        setModal(true);
         pack();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -80,6 +90,7 @@ public class DSettings extends JDialog{
     private void onDispose(){
         dispose();
     }
+
     private void onCancel(){
         FramePrincipal.school.refresh();
         framePrincipal.loadSchool();
