@@ -25,6 +25,7 @@ public class Export {
     private static HSSFSheet hoja;
     private static HSSFCellStyle styleCabecera;
     private static CellStyle dateFormat;
+
     public static void exportar(String titulo,String[] nombreColumnas, List<Object[]> datos){
         if(!datos.isEmpty()){
             if(pedirNombre(titulo)){

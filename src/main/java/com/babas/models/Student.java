@@ -67,4 +67,11 @@ public class Student extends Babas {
     public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
+
+    public static Student create(String[] attributes){
+        Student student=new Student();
+        student.setDni(attributes[0]);
+        student.setName(attributes[1]);
+        return student;
+    }
 }

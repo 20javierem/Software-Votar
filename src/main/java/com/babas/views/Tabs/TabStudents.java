@@ -1,6 +1,8 @@
 package com.babas.views.Tabs;
 
 import com.babas.custom.TabPane;
+import com.babas.utilities.CSVReader;
+import com.babas.utilities.Utilities;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.utilitiesTables.buttonEditors.JButtonEditorStudent;
 import com.babas.utilitiesTables.tablesCellRendered.StudentCellRendered;
@@ -27,6 +29,15 @@ public class TabStudents {
                 loadNewStudent();
             }
         });
+        btnImport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                importStudents();
+            }
+        });
+    }
+    private void importStudents(){
+        CSVReader.importStudents(table);
     }
     private void initComponents(){
         tabPane.setTitle("Estudiantes");

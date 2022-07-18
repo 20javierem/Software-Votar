@@ -58,6 +58,7 @@ public class Utilities {
     public static JSpinner.NumberEditor getEditorPrice(JSpinner spinner) {
         return new JSpinner.NumberEditor(spinner, "###,###,###.##");
     }
+
     public static void setTema(String tema){
         try {
             switch (tema){
