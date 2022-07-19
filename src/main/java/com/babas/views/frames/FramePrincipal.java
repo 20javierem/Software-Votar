@@ -65,12 +65,6 @@ public class FramePrincipal extends JFrame{
                 loadSettings();
             }
         });
-        lblNameSchool.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Pruebas");
-            }
-        });
     }
     private void loadSettings(){
         DSettings dSettings =new DSettings(propiedades,this);

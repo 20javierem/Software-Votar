@@ -72,6 +72,62 @@ public class Notify extends JDialog {
             private int y=0;
             private int top;
             private boolean top_to_bot;
+
+            @Override
+            public void begin() {
+                if (!showing) {
+                    setOpacity(0f);
+                    int margin = 10;
+                    if (location == Notify.Location.TOP_CENTER) {
+                        x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
+                        y = fram.getY()+margin;
+                        top_to_bot = true;
+                    } else if (location == Notify.Location.TOP_RIGHT) {
+                        x = fram.getX() + fram.getWidth() - getWidth() - 2*margin;
+                        y = fram.getY()+margin;
+                        top_to_bot = true;
+                    } else if (location == Notify.Location.TOP_LEFT) {
+                        x = fram.getX() + 2*margin;
+                        y = fram.getY()+margin;
+                        top_to_bot = true;
+                    } else if (location == Notify.Location.BOTTOM_CENTER) {
+                        x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
+                        y = fram.getY() + fram.getHeight() - getHeight();
+                        top_to_bot = false;
+                    } else if (location == Notify.Location.BOTTOM_RIGHT) {
+                        x = fram.getX() + fram.getWidth() - getWidth() - 2*margin;
+                        y = fram.getY() + fram.getHeight() - getHeight() - margin;
+                        top_to_bot = false;
+                    } else if (location == Notify.Location.BOTTOM_LEFT) {
+                        x = fram.getX() + 2*margin;
+                        y = fram.getY() + fram.getHeight() - getHeight() - margin;
+                        top_to_bot = false;
+                    } else {
+                        x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
+                        y = fram.getY() + ((fram.getHeight() - getHeight()) / 2);
+                        top_to_bot = true;
+                    }
+                    top = y;
+                    setLocation(x,y);
+                    setVisible(true);
+                }
+            }
+            @Override
+            public void end() {
+                showing = !showing;
+                if (showing) {
+                    thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            sleep();
+                            closeNotification();
+                        }
+                    });
+                    thread.start();
+                } else {
+                    dispose();
+                }
+            }
             @Override
             public void timingEvent(float fraction) {
                 float alpha;
@@ -93,63 +149,6 @@ public class Notify extends JDialog {
                     }
                 }
                 setOpacity(alpha);
-            }
-
-            @Override
-            public void begin() {
-                if (!showing) {
-                    setOpacity(0f);
-                    int margin = 10;
-                    if (location == Notify.Location.TOP_CENTER) {
-                        x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
-                        y = fram.getY();
-                        top_to_bot = true;
-                    } else if (location == Notify.Location.TOP_RIGHT) {
-                        x = fram.getX() + fram.getWidth() - getWidth() - 2*margin;
-                        y = fram.getY()-margin;
-                        top_to_bot = true;
-                    } else if (location == Notify.Location.TOP_LEFT) {
-                        x = fram.getX() + 2*margin;
-                        y = fram.getY() + margin;
-                        top_to_bot = true;
-                    } else if (location == Notify.Location.BOTTOM_CENTER) {
-                        x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
-                        y = fram.getY() + fram.getHeight() - getHeight();
-                        top_to_bot = false;
-                    } else if (location == Notify.Location.BOTTOM_RIGHT) {
-                        x = fram.getX() + fram.getWidth() - getWidth() - 2*margin;
-                        y = fram.getY() + fram.getHeight() - getHeight() - margin;
-                        top_to_bot = false;
-                    } else if (location == Notify.Location.BOTTOM_LEFT) {
-                        x = fram.getX() + 2*margin;
-                        y = fram.getY() + fram.getHeight() - getHeight() - margin;
-                        top_to_bot = false;
-                    } else {
-                        x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
-                        y = fram.getY() + ((fram.getHeight() - getHeight()) / 2);
-                        top_to_bot = true;
-                    }
-                    top = y;
-                    setLocation(x, y);
-                    setVisible(true);
-                }
-            }
-
-            @Override
-            public void end() {
-                showing = !showing;
-                if (showing) {
-                    thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            sleep();
-                            closeNotification();
-                        }
-                    });
-                    thread.start();
-                } else {
-                    dispose();
-                }
             }
         };
         animator = new Animator(500, target);
