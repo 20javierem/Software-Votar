@@ -9,6 +9,7 @@ import com.babas.models.School;
 import com.babas.models.Student;
 import com.babas.utilities.Propiedades;
 import com.babas.utilities.Utilities;
+import com.babas.utilities.notification.Notification;
 import com.babas.views.Tabs.TabElections;
 import com.babas.views.Tabs.TabStudents;
 import com.babas.views.dialogs.DSettings;
@@ -18,6 +19,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class FramePrincipal extends JFrame{
@@ -36,7 +39,7 @@ public class FramePrincipal extends JFrame{
     private TabStudents tabStudents;
     private TabElections tabElections;
     private Propiedades propiedades;
-
+    private JFrame frame=this;
     public FramePrincipal(Propiedades propiedades){
         this.propiedades=propiedades;
         initComponents();
@@ -62,6 +65,13 @@ public class FramePrincipal extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadSettings();
+            }
+        });
+        lblNameSchool.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Notification notification=new Notification(frame, Notification.Type.INFO, Notification.Location.TOP_RIGHT,"exito");
+                notification.showNotification();
             }
         });
     }
