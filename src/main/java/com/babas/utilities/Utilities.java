@@ -46,6 +46,7 @@ public class Utilities {
     public static DateFormat año=new SimpleDateFormat("yyyy");
     public static NumberFormat moneda = NumberFormat.getCurrencyInstance();
     public static NumberFormat precio = new DecimalFormat("$#,###.##");
+    private static Notify notify;
     public static String getFormatoFecha(){
         return "dd/MM/yyyy";
     }
@@ -160,8 +161,11 @@ public class Utilities {
     }
 
     public static void sendNotify(JFrame jframe, Notify.Type type, Notify.Location location, String tittle, String message){
-        Notify notification=new Notify(jframe, type, location,tittle,message);
-        notification.showNotification();
+        if(notify!=null){
+            notify.dispose();
+        }
+        notify=new Notify(jframe, type, location,tittle,message);
+        notify.showNotification();
     }
 
 

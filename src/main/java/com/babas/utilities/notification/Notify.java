@@ -28,6 +28,7 @@ public class Notify extends JDialog {
     private JPanel contentPane;
     private JLabel lblIcon;
     private JPanel pane;
+    private JPanel pane1;
     private String tittle;
     private String message;
 
@@ -159,7 +160,7 @@ public class Notify extends JDialog {
         animator.start();
     }
 
-    private void closeNotification() {
+    public void closeNotification() {
         if (thread != null && thread.isAlive()) {
             thread.interrupt();
         }
@@ -177,7 +178,7 @@ public class Notify extends JDialog {
 
     private void sleep() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
         }
     }
@@ -192,6 +193,7 @@ public class Notify extends JDialog {
             contentPane.setBackground(new Color(241, 196, 15));
         }
     }
+
 
     public enum Type {
         SUCCESS, INFO, WARNING
