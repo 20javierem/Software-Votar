@@ -5,6 +5,7 @@ import com.babas.models.Candidate;
 import com.babas.models.Election;
 import com.babas.models.Student;
 import com.babas.utilities.Utilities;
+import com.babas.utilities.notification.Notify;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.utilitiesTables.buttonEditors.JButtonEditorStudent;
 import com.babas.utilitiesTables.tablesCellRendered.StudentCellRendered;
@@ -75,7 +76,7 @@ public class DaddCandidates extends JDialog{
         if(table.getSelectedRow()!=-1){
             verifyCandidate(model.get(table.convertRowIndexToModel(table.getSelectedRow())));
         }else{
-            Utilities.sendNotification("ERROR","Seleccione un estudiante", TrayIcon.MessageType.ERROR);
+            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","Seleccione un estudiante");
         }
     }
     private void verifyCandidate(Student student){

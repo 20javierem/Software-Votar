@@ -2,6 +2,7 @@ package com.babas.utilities;
 
 import com.babas.controllers.Students;
 import com.babas.models.Student;
+import com.babas.utilities.notification.Notify;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.validators.StudentValidator;
 import com.babas.views.frames.FramePrincipal;
@@ -41,7 +42,7 @@ public class CSVReader {
                     }
                     line = bufferedReader.readLine();
                 }
-                Utilities.sendNotification("ÉXITO","Alumnos importados", TrayIcon.MessageType.INFO);
+                Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Alumnos importados");
             } catch (IOException e) {
                 e.printStackTrace();
             }

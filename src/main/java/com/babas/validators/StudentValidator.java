@@ -2,6 +2,7 @@ package com.babas.validators;
 
 import com.babas.models.Student;
 import com.babas.utilities.Utilities;
+import com.babas.utilities.notification.Notify;
 import jakarta.validation.ConstraintViolation;
 
 import java.awt.*;
@@ -19,6 +20,6 @@ public class StudentValidator {
         Object[] errores=errors.toArray();
         ConstraintViolation<Student> error1= (ConstraintViolation<Student>) errores[0];
         String error = "Verfique el campo: "+error1.getMessage();
-        Utilities.sendNotification("Error", error, TrayIcon.MessageType.ERROR);
+        Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR",error);
     }
 }

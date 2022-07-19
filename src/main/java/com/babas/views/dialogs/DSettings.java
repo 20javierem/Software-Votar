@@ -3,6 +3,7 @@ package com.babas.views.dialogs;
 import com.babas.utilities.Babas;
 import com.babas.utilities.Propiedades;
 import com.babas.utilities.Utilities;
+import com.babas.utilities.notification.Notify;
 import com.babas.views.frames.FramePrincipal;
 
 import javax.swing.*;
@@ -82,9 +83,9 @@ public class DSettings extends JDialog{
             Babas.session.getEntityManagerFactory().getProperties().put("connection.url",txtDatabaseUrl.getText());
             framePrincipal.loadSchool();
             onDispose();
-            Utilities.sendNotification("ÉXITO","Cambios guardados", TrayIcon.MessageType.INFO);
+            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Cambios guardados");
         }else{
-            Utilities.sendNotification("ERROR","La contraseña debe ser de logitud mayor a 5", TrayIcon.MessageType.WARNING);
+            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ADVERTENCIA","La contraseña debe ser de logitud mayor a 5");
         }
     }
     private void onDispose(){

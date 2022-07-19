@@ -1,5 +1,6 @@
 package com.babas.utilities;
 
+import com.babas.utilities.notification.Notify;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -46,7 +47,7 @@ public class Exportar {
                 abrirExcel();
             }
         }else{
-            Utilities.sendNotification("Error","No hay datos", TrayIcon.MessageType.ERROR);
+            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","No hay datos");
         }
     }
 

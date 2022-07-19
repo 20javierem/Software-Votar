@@ -3,6 +3,7 @@ package com.babas.utilitiesTables.buttonEditors;
 import com.babas.models.Candidate;
 import com.babas.models.Election;
 import com.babas.utilities.Utilities;
+import com.babas.utilities.notification.Notify;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.utilitiesTables.tablesModels.CandidatesTableModel;
 import com.babas.utilitiesTables.tablesModels.ElectionTableModel;
@@ -43,7 +44,7 @@ public class JButtonEditorCandidate extends AbstractCellEditor implements TableC
                     }
                 }
             }else{
-                Utilities.sendNotification("ERROR","El candidato tiene votos a favor", TrayIcon.MessageType.ERROR);
+                Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","El candidato tiene votos a favor");
             }
             UtilitiesTables.actualizarTabla(table);
         }

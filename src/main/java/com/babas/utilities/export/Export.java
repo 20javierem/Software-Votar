@@ -1,6 +1,7 @@
 package com.babas.utilities.export;
 
 import com.babas.utilities.Utilities;
+import com.babas.utilities.notification.Notify;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -62,7 +63,7 @@ public class Export {
                 abrirExcel();
             }
         }else{
-            Utilities.sendNotification("Error","No hay datos", TrayIcon.MessageType.ERROR);
+            Utilities.sendNotify(Utilities.getJFrame(),Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"MENSAJE","No se encontraron elecciones activas");
         }
     }
 

@@ -8,6 +8,7 @@ import com.babas.models.Election;
 import com.babas.models.Student;
 import com.babas.utilities.Propiedades;
 import com.babas.utilities.Utilities;
+import com.babas.utilities.notification.Notify;
 import com.babas.views.frames.FramePrincipal;
 
 import javax.swing.*;
@@ -67,10 +68,10 @@ public class Dvotation extends JFrame {
                     dispose();
                     framePrincipal.setVisible(true);
                 }else{
-                    Utilities.sendNotification("ERROR","La constraseña es incorrecta", TrayIcon.MessageType.ERROR);
+                    Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","La constraseña es incorrecta");
                 }
             }else{
-                Utilities.sendNotification("ERROR","Ingrese la contraseña", TrayIcon.MessageType.ERROR);
+                Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","Ingrese la contraseña");
                 endElection();
             }
         }
@@ -85,15 +86,15 @@ public class Dvotation extends JFrame {
                         DVote dVote=new DVote(this,election,student);
                         dVote.setVisible(true);
                     }else{
-                        Utilities.sendNotification("Error","El estudiante ya realizó el voto", TrayIcon.MessageType.INFO);
+                        Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","El estudiante ya realizó el voto");
                         startVote();
                     }
                 }else{
-                    Utilities.sendNotification("Error","No se encontró al estudiante", TrayIcon.MessageType.WARNING);
+                    Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","No se encontró al estudiante");
                     startVote();
                 }
             }else{
-                Utilities.sendNotification("Error","Ingrese el dni del estudiante", TrayIcon.MessageType.ERROR);
+                Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","Ingrese el dni del estudiante");
                 startVote();
             }
         }

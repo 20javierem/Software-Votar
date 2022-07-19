@@ -1,6 +1,7 @@
 package com.babas.utilities;
 
 import com.babas.App;
+import com.babas.utilities.notification.Notify;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -39,12 +40,6 @@ import java.util.List;
 import java.util.*;
 
 public class Utilities {
-    private static TrayIcon mainTrayIcon;
-    private static DefaultTableCellRenderer centro = new DefaultTableCellRenderer();
-    private static DefaultTableCellRenderer izquierda = new DefaultTableCellRenderer();
-    private static Image trayIconImagePane = Toolkit.getDefaultToolkit().createImage(App.class.getResource("Icons/x32/fedora.png"));
-    private static SystemTray mainTray;
-    private static boolean primera=true;
     public static DateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
     public static DateFormat formatoFechaHora=new SimpleDateFormat("dd/MM/yyyy: h:mm a");
     public static DateFormat formatoHora=new SimpleDateFormat("HH:mm a");
@@ -54,11 +49,16 @@ public class Utilities {
     public static String getFormatoFecha(){
         return "dd/MM/yyyy";
     }
-
+    private static JFrame jFrame;
     public static JSpinner.NumberEditor getEditorPrice(JSpinner spinner) {
         return new JSpinner.NumberEditor(spinner, "###,###,###.##");
     }
-
+    public static void setJFrame(JFrame jFrame){
+        Utilities.jFrame=jFrame;
+    }
+    public static JFrame getJFrame(){
+        return jFrame;
+    }
     public static void setTema(String tema){
         try {
             switch (tema){
@@ -159,38 +159,11 @@ public class Utilities {
         return code;
     }
 
-    public static void sendNotification(String title, String subtitle, TrayIcon.MessageType tipoMensaje) {
-        if(isWindows(System.getProperty("os.name"))){
-            if(primera){
-                instanciar();
-            }
-            if(mainTray.getTrayIcons().length==0){
-                try {
-                    mainTray.add(mainTrayIcon);
-                    mainTrayIcon.setToolTip("Gestor de notificaciones");
-                } catch (AWTException e) {
-                    e.printStackTrace();
-                }
-            }
-            mainTrayIcon.setImageAutoSize(true);
-            try {
-                mainTrayIcon.displayMessage(title,  subtitle, tipoMensaje);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    public static void sendNotify(JFrame jframe, Notify.Type type, Notify.Location location, String tittle, String message){
+        Notify notification=new Notify(jframe, type, location,tittle,message);
+        notification.showNotification();
     }
 
-    private static void instanciar(){
-        mainTray = SystemTray.getSystemTray();
-        mainTrayIcon=new TrayIcon(trayIconImagePane);
-        primera=false;
-    }
-
-    public static boolean isWindows(String OS) {
-        return (OS.indexOf("Win") >= 0);
-    }
 
     public static Vector invertirVector(Vector vector){
         Object ventaAUX;

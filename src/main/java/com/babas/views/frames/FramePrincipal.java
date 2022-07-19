@@ -9,18 +9,14 @@ import com.babas.models.School;
 import com.babas.models.Student;
 import com.babas.utilities.Propiedades;
 import com.babas.utilities.Utilities;
-import com.babas.utilities.notification.Notification;
+import com.babas.utilities.notification.Notify;
 import com.babas.views.Tabs.TabElections;
 import com.babas.views.Tabs.TabStudents;
 import com.babas.views.dialogs.DSettings;
 import com.babas.views.dialogs.DstarVotation;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.List;
 
 public class FramePrincipal extends JFrame{
@@ -40,6 +36,8 @@ public class FramePrincipal extends JFrame{
     private TabElections tabElections;
     private Propiedades propiedades;
     private JFrame frame=this;
+    private boolean change=true;
+
     public FramePrincipal(Propiedades propiedades){
         this.propiedades=propiedades;
         initComponents();
@@ -70,8 +68,7 @@ public class FramePrincipal extends JFrame{
         lblNameSchool.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Notification notification=new Notification(frame, Notification.Type.INFO, Notification.Location.TOP_RIGHT,"exito");
-                notification.showNotification();
+                Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Pruebas");
             }
         });
     }
@@ -107,11 +104,12 @@ public class FramePrincipal extends JFrame{
             DstarVotation dstarVotation=new DstarVotation(propiedades,this);
             dstarVotation.setVisible(true);
         }else{
-            Utilities.sendNotification("MENSAJE","No se encontraron elecciones activas", TrayIcon.MessageType.INFO);
+            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"MENSAJE","No se encontraron elecciones activas");
         }
 
     }
     private void initComponents(){
+        Utilities.setJFrame(this);
         setContentPane(contentPane);
         setTitle("Software-votación");
         loadData();
