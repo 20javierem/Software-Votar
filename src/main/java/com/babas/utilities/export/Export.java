@@ -63,7 +63,7 @@ public class Export {
                 abrirExcel();
             }
         }else{
-            Utilities.sendNotify(Utilities.getJFrame(),Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"MENSAJE","No se encontraron elecciones activas");
+            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"MENSAJE","No se encontraron elecciones activas");
         }
     }
 

@@ -27,6 +27,7 @@ public class Notify extends JDialog {
     private javax.swing.JLabel lblMessage;
     private JPanel contentPane;
     private JLabel lblIcon;
+    private JPanel pane;
     private String tittle;
     private String message;
 
@@ -103,11 +104,11 @@ public class Notify extends JDialog {
                         y = fram.getY();
                         top_to_bot = true;
                     } else if (location == Notify.Location.TOP_RIGHT) {
-                        x = fram.getX() + fram.getWidth() - getWidth() - margin;
+                        x = fram.getX() + fram.getWidth() - getWidth() - 2*margin;
                         y = fram.getY()-margin;
                         top_to_bot = true;
                     } else if (location == Notify.Location.TOP_LEFT) {
-                        x = fram.getX() + margin;
+                        x = fram.getX() + 2*margin;
                         y = fram.getY() + margin;
                         top_to_bot = true;
                     } else if (location == Notify.Location.BOTTOM_CENTER) {
@@ -115,12 +116,12 @@ public class Notify extends JDialog {
                         y = fram.getY() + fram.getHeight() - getHeight();
                         top_to_bot = false;
                     } else if (location == Notify.Location.BOTTOM_RIGHT) {
-                        x = fram.getX() + fram.getWidth() - getWidth() - margin;
+                        x = fram.getX() + fram.getWidth() - getWidth() - 2*margin;
                         y = fram.getY() + fram.getHeight() - getHeight() - margin;
                         top_to_bot = false;
                     } else if (location == Notify.Location.BOTTOM_LEFT) {
-                        x = fram.getX() + margin;
-                        y = fram.getY() + fram.getHeight() - getHeight() + margin;
+                        x = fram.getX() + 2*margin;
+                        y = fram.getY() + fram.getHeight() - getHeight() - margin;
                         top_to_bot = false;
                     } else {
                         x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
@@ -182,35 +183,21 @@ public class Notify extends JDialog {
     }
 
     private void paint(){
-        if (type == Notify.Type.SUCCESS) {
+        pane.setBackground(pane.getBackground().brighter());
+        if (type == Type.SUCCESS) {
             contentPane.setBackground(new Color(18, 163, 24));
-        } else if (type == Notify.Type.INFO) {
+        } else if (type == Type.INFO) {
             contentPane.setBackground(new Color(28, 139, 206));
         } else {
             contentPane.setBackground(new Color(241, 196, 15));
         }
     }
 
-    private void createImageShadow() {
-        imageShadow = new BufferedImage(400, 60, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = imageShadow.createGraphics();
-        g2.drawImage(createShadow(), 0, 0, null);
-        g2.dispose();
-    }
-
-    private BufferedImage createShadow() {
-        BufferedImage img = new BufferedImage(400 - shadowSize * 2, 60 - shadowSize * 2, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = img.createGraphics();
-        g2.fillRect(0, 0, img.getWidth(), img.getHeight());
-        g2.dispose();
-        return new ShadowRenderer(shadowSize, 0.3f, new Color(100, 100, 100)).createShadow(img);
-    }
-
-    public static enum Type {
+    public enum Type {
         SUCCESS, INFO, WARNING
     }
 
-    public static enum Location {
+    public enum Location {
         TOP_CENTER, TOP_RIGHT, TOP_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT, BOTTOM_LEFT, CENTER
     }
 
