@@ -90,8 +90,7 @@ public class TabbedPane extends JTabbedPane {
                 if(component instanceof TabPane){
                     TabPane tabPane=(TabPane) component;
                     if(tabPane.getOption()!=null){
-                        tabPane.getOption().setBackground(new JButton().getBackground());
-                        tabPane.getOption().setForeground(new JButton().getForeground());
+                        tabPane.getOption().setSelected(false);
                     }
                 }
             }
@@ -108,8 +107,7 @@ public class TabbedPane extends JTabbedPane {
             if(getComponentAt(getSelectedIndex()) instanceof TabPane){
                 TabPane tabPane =(TabPane) getComponentAt(getSelectedIndex());
                 if(tabPane.getOption()!=null){
-                    Utilities.buttonSelectedOrEntered2(tabPane.getOption());
-                    tabPane.getOption().setForeground(Color.white);
+                    tabPane.getOption().setSelected(true);
                 }
                 tabPane.update();
             }

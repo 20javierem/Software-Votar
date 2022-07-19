@@ -2,7 +2,6 @@ package com.babas.models;
 
 import com.babas.utilities.Babas;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,4 @@ public class Candidate extends Babas {
         return votes;
     }
 
-    public void setVotes(List<Vote> votes) {
-        this.votes = votes;
-    }
 }

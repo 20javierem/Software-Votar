@@ -5,7 +5,7 @@ import javax.swing.*;
 public class TabPane extends JPanel {
     private String title;
     private Icon icon;
-    private JButton option;
+    private JToggleButton option;
     private JButton actions=new JButton();
 
     public String getTitle() {
@@ -24,11 +24,11 @@ public class TabPane extends JPanel {
         this.icon = icon;
     }
 
-    public JButton getOption() {
+    public JToggleButton getOption() {
         return option;
     }
 
-    public void setOption(JButton option) {
+    public void setOption(JToggleButton option) {
         this.option = option;
     }
 

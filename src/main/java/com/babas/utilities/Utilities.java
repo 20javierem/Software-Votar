@@ -115,22 +115,6 @@ public class Utilities {
         }
     }
 
-    public static void buttonSelectedOrEntered(JButton boton){
-            boton.setBackground(Colors.buttonSelected1);
-    }
-
-    public static void buttonSelectedOrEntered2(JButton boton){
-        boton.setBackground(Colors.buttonSelected2);
-    }
-
-    public static void despintarButton(JButton boton){
-        boton.setForeground(new JButton().getForeground());
-        boton.setBackground(new JButton().getBackground());
-    }
-    public static void buttonExited(JButton boton){
-        boton.setBackground(Colors.buttonExited1);
-    }
-
     public static Date convertLocalTimeToDate(LocalTime time) {
         Instant instant = time.atDate(LocalDate.now()).atZone(ZoneId.systemDefault()).toInstant();
         return toDate(instant);

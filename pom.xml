@@ -20,12 +20,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.opencsv</groupId>
-      <artifactId>opencsv</artifactId>
-      <version>5.6</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.mariadb.jdbc</groupId>
       <artifactId>mariadb-java-client</artifactId>
       <version>3.0.6</version>
@@ -95,6 +89,12 @@
       <groupId>com.github.lgooddatepicker</groupId>
       <artifactId>LGoodDatePicker</artifactId>
       <version>11.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.kenai.nbpwr</groupId>
+      <artifactId>org-jdesktop-animation-timing</artifactId>
+      <version>1.0-201002281504</version>
+      <type>nbm</type>
     </dependency>
     <dependency>
       <groupId>com.formdev</groupId>
