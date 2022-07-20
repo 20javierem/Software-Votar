@@ -65,9 +65,6 @@ public class DeditElection extends JDialog{
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
-    private void onSave(){
-        dispose();
-    }
     private void onCancel(){
         if(election.getId()!=null){
             election.getCandidatesChanges().forEach(candidate -> {
@@ -86,7 +83,7 @@ public class DeditElection extends JDialog{
             election.save();
             election.getCandidates().forEach(Babas::save);
             if(update){
-                onSave();
+                dispose();
             }else{
                 FramePrincipal.electionsActives.add(election);
                 FramePrincipal.elections.add(election);
