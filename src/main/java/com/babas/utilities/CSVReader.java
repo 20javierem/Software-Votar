@@ -2,15 +2,14 @@ package com.babas.utilities;
 
 import com.babas.controllers.Students;
 import com.babas.models.Student;
-import com.babas.utilities.notification.Notify;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.validators.StudentValidator;
 import com.babas.views.frames.FramePrincipal;
+import com.moreno.Notify;
 import jakarta.validation.ConstraintViolation;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.FileChooserUI;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,8 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class CSVReader {
@@ -42,7 +39,7 @@ public class CSVReader {
                     }
                     line = bufferedReader.readLine();
                 }
-                Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Alumnos importados");
+                Notify.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Alumnos importados");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -9,11 +9,11 @@ import com.babas.models.School;
 import com.babas.models.Student;
 import com.babas.utilities.Propiedades;
 import com.babas.utilities.Utilities;
-import com.babas.utilities.notification.Notify;
 import com.babas.views.Tabs.TabElections;
 import com.babas.views.Tabs.TabStudents;
 import com.babas.views.dialogs.DSettings;
 import com.babas.views.dialogs.DstarVotation;
+import com.moreno.Notify;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -98,7 +98,7 @@ public class FramePrincipal extends JFrame{
             DstarVotation dstarVotation=new DstarVotation(propiedades,this);
             dstarVotation.setVisible(true);
         }else{
-            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"MENSAJE","No se encontraron elecciones activas");
+            Notify.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"MENSAJE","No se encontraron elecciones activas");
         }
 
     }

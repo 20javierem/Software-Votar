@@ -3,16 +3,14 @@ package com.babas.views.dialogs;
 import com.babas.utilities.Babas;
 import com.babas.utilities.Propiedades;
 import com.babas.utilities.Utilities;
-import com.babas.utilities.notification.Notify;
 import com.babas.views.frames.FramePrincipal;
+import com.moreno.Notify;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
 public class DSettings extends JDialog{
     private JPanel contentPane;
-    private JTabbedPane tabbedPane1;
     private JComboBox cbbTema;
     private JButton btnAplyThme;
     private JTextField txtNameInstitution;
@@ -83,9 +81,9 @@ public class DSettings extends JDialog{
             Babas.session.getEntityManagerFactory().getProperties().put("connection.url",txtDatabaseUrl.getText());
             framePrincipal.loadSchool();
             onDispose();
-            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Cambios guardados");
+            Notify.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Cambios guardados");
         }else{
-            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ADVERTENCIA","La contraseña debe ser de logitud mayor a 5");
+            Notify.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ADVERTENCIA","La contraseña debe ser de logitud mayor a 5");
         }
     }
     private void onDispose(){

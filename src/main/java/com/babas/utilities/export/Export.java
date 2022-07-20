@@ -1,7 +1,7 @@
 package com.babas.utilities.export;
 
 import com.babas.utilities.Utilities;
-import com.babas.utilities.notification.Notify;
+import com.moreno.Notify;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -10,7 +10,6 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -63,7 +62,7 @@ public class Export {
                 abrirExcel();
             }
         }else{
-            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"MENSAJE","No se encontraron elecciones activas");
+            Notify.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"MENSAJE","No se encontraron elecciones activas");
         }
     }
 

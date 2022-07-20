@@ -1,11 +1,12 @@
 package com.babas.utilities;
 
 import com.babas.App;
-import com.babas.utilities.notification.Notify;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.swing.JRViewerPanel;
@@ -23,7 +24,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.AlgorithmParameters;
 import java.security.NoSuchAlgorithmException;
@@ -36,7 +36,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.*;
 
 public class Utilities {
@@ -46,19 +45,13 @@ public class Utilities {
     public static DateFormat año=new SimpleDateFormat("yyyy");
     public static NumberFormat moneda = NumberFormat.getCurrencyInstance();
     public static NumberFormat precio = new DecimalFormat("$#,###.##");
-    private static Notify notify;
     public static String getFormatoFecha(){
         return "dd/MM/yyyy";
     }
     private static JFrame jFrame;
+
     public static JSpinner.NumberEditor getEditorPrice(JSpinner spinner) {
         return new JSpinner.NumberEditor(spinner, "###,###,###.##");
-    }
-    public static void setJFrame(JFrame jFrame){
-        Utilities.jFrame=jFrame;
-    }
-    public static JFrame getJFrame(){
-        return jFrame;
     }
     public static void setTema(String tema){
         try {
@@ -73,8 +66,14 @@ public class Utilities {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-    }
 
+    }
+    public static void setJFrame(JFrame jFrame){
+        Utilities.jFrame=jFrame;
+    }
+    public static JFrame getJFrame(){
+        return jFrame;
+    }
     public static void updateComponents(JComponent parent){
         Font font=parent.getFont();
         parent.updateUI();
@@ -114,6 +113,14 @@ public class Utilities {
                 return false;
             }
         }
+    }
+
+    public static void buttonSelected(JToggleButton boton){
+        boton.setSelected(true);
+    }
+
+    public static void despintarButton(JToggleButton boton){
+        boton.setSelected(false);
     }
 
     public static Date convertLocalTimeToDate(LocalTime time) {
@@ -159,15 +166,6 @@ public class Utilities {
         }
         return code;
     }
-
-    public static void sendNotify(JFrame jframe, Notify.Type type, Notify.Location location, String tittle, String message){
-        if(notify!=null){
-            notify.dispose();
-        }
-        notify=new Notify(jframe, type, location,tittle,message);
-        notify.showNotification();
-    }
-
 
     public static Vector invertirVector(Vector vector){
         Object ventaAUX;

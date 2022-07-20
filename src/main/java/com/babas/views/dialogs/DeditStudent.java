@@ -3,10 +3,10 @@ package com.babas.views.dialogs;
 import com.babas.controllers.Students;
 import com.babas.models.Student;
 import com.babas.utilities.Utilities;
-import com.babas.utilities.notification.Notify;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.validators.StudentValidator;
 import com.babas.views.frames.FramePrincipal;
+import com.moreno.Notify;
 import jakarta.validation.ConstraintViolation;
 
 import javax.swing.*;
@@ -91,7 +91,7 @@ public class DeditStudent extends JDialog {
                     student=new Student();
                     loadStudent();
                 }else{
-                    Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","Estudiante ya registrado");
+                    Notify.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","Estudiante ya registrado");
 
                 }
             }

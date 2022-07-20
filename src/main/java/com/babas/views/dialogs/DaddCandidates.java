@@ -5,12 +5,11 @@ import com.babas.models.Candidate;
 import com.babas.models.Election;
 import com.babas.models.Student;
 import com.babas.utilities.Utilities;
-import com.babas.utilities.notification.Notify;
 import com.babas.utilitiesTables.UtilitiesTables;
-import com.babas.utilitiesTables.buttonEditors.JButtonEditorStudent;
 import com.babas.utilitiesTables.tablesCellRendered.StudentCellRendered;
 import com.babas.utilitiesTables.tablesModels.StudentTableModel;
 import com.babas.views.frames.FramePrincipal;
+import com.moreno.Notify;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -76,7 +75,7 @@ public class DaddCandidates extends JDialog{
         if(table.getSelectedRow()!=-1){
             verifyCandidate(model.get(table.convertRowIndexToModel(table.getSelectedRow())));
         }else{
-            Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","Seleccione un estudiante");
+            Notify.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","Seleccione un estudiante");
         }
     }
     private void verifyCandidate(Student student){

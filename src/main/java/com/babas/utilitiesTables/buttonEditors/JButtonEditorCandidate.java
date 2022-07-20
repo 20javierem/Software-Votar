@@ -3,11 +3,9 @@ package com.babas.utilitiesTables.buttonEditors;
 import com.babas.models.Candidate;
 import com.babas.models.Election;
 import com.babas.utilities.Utilities;
-import com.babas.utilities.notification.Notify;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.utilitiesTables.tablesModels.CandidatesTableModel;
-import com.babas.utilitiesTables.tablesModels.ElectionTableModel;
-import com.babas.views.dialogs.DeditElection;
+import com.moreno.Notify;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
@@ -44,7 +42,7 @@ public class JButtonEditorCandidate extends AbstractCellEditor implements TableC
                     }
                 }
             }else{
-                Utilities.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","El candidato tiene votos a favor");
+                Notify.sendNotify(Utilities.getJFrame(), Notify.Type.WARNING, Notify.Location.BOTTOM_RIGHT,"ERROR","El candidato tiene votos a favor");
             }
             UtilitiesTables.actualizarTabla(table);
         }
