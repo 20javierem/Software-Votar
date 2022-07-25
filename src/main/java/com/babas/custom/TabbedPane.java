@@ -1,6 +1,8 @@
 package com.babas.custom;
 
+
 import com.babas.App;
+import com.babas.utilities.Utilities;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -33,6 +35,24 @@ public class TabbedPane extends JTabbedPane {
     private Double minY=0.0;
     private JButton buttonEsquina=new JButton();
     private JToolBar toolBar=new JToolBar();
+    private JPopupMenu pop_up = new JPopupMenu();
+
+    @Override
+    public Component[] getComponents() {
+        if(super.getComponents().length>=1){
+            Component[] components=new Component[super.getComponents().length+1];
+            int i=0;
+            for (Component component:super.getComponents()){
+                components[i]=component;
+                i++;
+            }
+            components[i]=pop_up;
+            return components;
+        }
+        return super.getComponents();
+
+    }
+
 
     @Override
     public void removeTabAt(int index) {
@@ -89,7 +109,7 @@ public class TabbedPane extends JTabbedPane {
                 if(component instanceof TabPane){
                     TabPane tabPane=(TabPane) component;
                     if(tabPane.getOption()!=null){
-                        tabPane.getOption().setSelected(false);
+                        Utilities.despintarButton(tabPane.getOption());
                     }
                 }
             }
@@ -106,7 +126,7 @@ public class TabbedPane extends JTabbedPane {
             if(getComponentAt(getSelectedIndex()) instanceof TabPane){
                 TabPane tabPane =(TabPane) getComponentAt(getSelectedIndex());
                 if(tabPane.getOption()!=null){
-                    tabPane.getOption().setSelected(true);
+                    Utilities.buttonSelected(tabPane.getOption());
                 }
                 tabPane.update();
             }
@@ -115,7 +135,6 @@ public class TabbedPane extends JTabbedPane {
 
     private void insertarButtons(){
         //creacion de pop_up
-        JPopupMenu pop_up = new JPopupMenu();
         JMenuItem cerrarPestaña = new JMenuItem("Cerrar Pestaña");
         JMenuItem cerrarOtras = new JMenuItem("Cerrar Otras Pestañas");
         JMenuItem cerrarTodas = new JMenuItem("Cerrar Todas Las Pestañas");
@@ -146,7 +165,6 @@ public class TabbedPane extends JTabbedPane {
         pop_up.addSeparator();
         pop_up.add(cerrarOtras);
         pop_up.add(cerrarTodas);
-
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -182,12 +200,11 @@ public class TabbedPane extends JTabbedPane {
                 }
             }
         });
-
-        buttonEsquina.setIcon(new ImageIcon(App.class.getResource("Icons/x16/menu1.png")));
-        buttonEsquina.addMouseListener(new MouseAdapter() {
+        buttonEsquina.setIcon(new ImageIcon(App.class.getResource("Icons/x24/menu.png")));
+        buttonEsquina.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                pop_up.show(buttonEsquina,e.getX(),e.getY());
+            public void actionPerformed(ActionEvent e) {
+                pop_up.show(buttonEsquina,buttonEsquina.getVisibleRect().x,buttonEsquina.getVisibleRect().y+buttonEsquina.getHeight());
             }
         });
         toolBar.add(Box.createHorizontalGlue());
@@ -722,9 +739,9 @@ class Cross extends JPanel {
         closeButton.setBorderPainted(false);
         closeButton.setPreferredSize(new Dimension(20,20));
         closeButton.setToolTipText("Cerrar Pestaña " + title);
-        closeButton.setIcon(getImage("cerrar.png"));
-        closeButton.setRolloverIcon(getImage("cerrar2.png"));
-        closeButton.setPressedIcon(getImage("cerrar3.png"));
+        closeButton.setIcon(getImage("close.png"));
+        closeButton.setRolloverIcon(getImage("close2.png"));
+        closeButton.setPressedIcon(getImage("close3.png"));
         closeButton.addActionListener(e -> jTabbedPane.removeTabAt(jTabbedPane.indexOfTab(title)));
         add(this.title, gbc);
         gbc.gridx++;

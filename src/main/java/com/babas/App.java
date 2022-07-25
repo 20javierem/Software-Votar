@@ -13,9 +13,7 @@ public class App
 {
     public static void main( String[] args )
     {
-
         Propiedades propiedades=new Propiedades();
-        propiedades.guardar();
         Utilities.setTema(propiedades.getTema());
         Babas.initialize();
         FramePrincipal framePrincipal=new FramePrincipal(propiedades);
