@@ -71,18 +71,25 @@ public class Utilities {
     public static void setJFrame(JFrame jFrame){
         Utilities.jFrame=jFrame;
     }
+
     public static JFrame getJFrame(){
         return jFrame;
     }
+
     public static void updateComponents(JComponent parent){
         Font font=parent.getFont();
         parent.updateUI();
         parent.setFont(font);
-        for(Component component:parent.getComponents()){
-            if(component instanceof JComponent){
+        if(parent instanceof JTable){
+            UtilitiesTables.actualizarTabla((JTable) parent);
+        }else if(parent instanceof JMenu){
+            for (Component component:((JMenu) parent).getMenuComponents()){
                 updateComponents((JComponent) component);
-                if(component instanceof JTable){
-                    UtilitiesTables.actualizarTabla((JTable) component);
+            }
+        }else{
+            for(Component component:parent.getComponents()){
+                if(component instanceof JComponent){
+                    updateComponents((JComponent) component);
                 }
             }
         }
