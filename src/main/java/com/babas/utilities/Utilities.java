@@ -2,8 +2,10 @@ package com.babas.utilities;
 
 import com.babas.App;
 import com.babas.utilitiesTables.UtilitiesTables;
+import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperReport;
@@ -54,19 +56,20 @@ public class Utilities {
         return new JSpinner.NumberEditor(spinner, "###,###,###.##");
     }
     public static void setTema(String tema){
-        try {
-            switch (tema){
-                case "Claro":
-                    UIManager.setLookAndFeel(new FlatIntelliJLaf());
-                    break;
-                default:
-                    UIManager.setLookAndFeel(new FlatDarkLaf());
-                    break;
-            }
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+        switch (tema){
+            case "Ligth":
+                FlatIntelliJLaf.setup();
+                break;
+            case "Oscuro":
+                FlatDarkLaf.setup();
+                break;
+            case "Claro":
+                FlatLightLaf.setup();
+                break;
+            case "Darcula":
+                FlatDarculaLaf.setup();
+                break;
         }
-
     }
     public static void setJFrame(JFrame jFrame){
         Utilities.jFrame=jFrame;
