@@ -18,6 +18,7 @@ public class TabStudents {
     private JButton btnNewProduct;
     private JTable table;
     private JButton btnImport;
+    private JTextField textField1;
     private StudentTableModel model;
 
     public TabStudents() {
