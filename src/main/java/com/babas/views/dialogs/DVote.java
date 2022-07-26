@@ -37,7 +37,10 @@ public class DVote extends JDialog{
             }
         });
     }
+
     private void setVote(){
+        student.getVotes().add(vote);
+        election.getTotalVotes().add(vote);
         vote.setCandidate(getCandidateSelected());
         vote.save();
         dispose();
@@ -53,8 +56,6 @@ public class DVote extends JDialog{
     }
     private void initComponents(){
         vote=new Vote();
-        student.getVotes().add(vote);
-        election.getTotalVotes().add(vote);
         vote.setElection(election);
         vote.setStudent(student);
         setContentPane(contentPane);

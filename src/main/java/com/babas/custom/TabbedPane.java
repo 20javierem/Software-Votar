@@ -1,6 +1,8 @@
 package com.babas.custom;
 
+
 import com.babas.App;
+import com.babas.utilities.Utilities;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -48,7 +50,6 @@ public class TabbedPane extends JTabbedPane {
             return components;
         }
         return super.getComponents();
-
     }
 
     @Override
@@ -75,7 +76,7 @@ public class TabbedPane extends JTabbedPane {
     @Override
     public void addTab(String title, Icon icon,Component component) {
         super.addTab(title, icon,component);
-        setTabComponentAt(indexOfTab(title), new Cross(this, title,icon));
+        setTabComponentAt(indexOfComponent(component), new Cross(this, title,component,icon));
         setSelectedComponent(getComponentAt(indexOfTab(title)));
         despintar();
         pintarSeleccionado();
@@ -84,7 +85,7 @@ public class TabbedPane extends JTabbedPane {
     @Override
     public void addTab(String title,Component component) {
         super.addTab(title, component);
-        setTabComponentAt(indexOfTab(title), new Cross(this, title));
+        setTabComponentAt(indexOfComponent(component), new Cross(this, title,component));
         setSelectedComponent(getComponentAt(indexOfTab(title)));
         despintar();
         pintarSeleccionado();
@@ -114,7 +115,7 @@ public class TabbedPane extends JTabbedPane {
                 if(component instanceof TabPane){
                     TabPane tabPane=(TabPane) component;
                     if(tabPane.getOption()!=null){
-                        tabPane.getOption().setSelected(false);
+                        Utilities.despintarButton(tabPane.getOption());
                     }
                 }
             }
@@ -133,7 +134,7 @@ public class TabbedPane extends JTabbedPane {
             if(getComponentAt(getSelectedIndex()) instanceof TabPane){
                 TabPane tabPane =(TabPane) getComponentAt(getSelectedIndex());
                 if(tabPane.getOption()!=null){
-                    tabPane.getOption().setSelected(true);
+                    Utilities.buttonSelected(tabPane.getOption());
                 }
                 tabPane.update();
             }
@@ -172,7 +173,6 @@ public class TabbedPane extends JTabbedPane {
         pop_up.addSeparator();
         pop_up.add(cerrarOtras);
         pop_up.add(cerrarTodas);
-
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -208,12 +208,11 @@ public class TabbedPane extends JTabbedPane {
                 }
             }
         });
-
-        buttonEsquina.setIcon(new ImageIcon(App.class.getResource("Icons/x16/menu1.png")));
-        buttonEsquina.addMouseListener(new MouseAdapter() {
+        buttonEsquina.setIcon(new ImageIcon(App.class.getResource("Icons/x24/menu.png")));
+        buttonEsquina.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                pop_up.show(buttonEsquina,e.getX(),e.getY());
+            public void actionPerformed(ActionEvent e) {
+                pop_up.show(buttonEsquina,buttonEsquina.getVisibleRect().x,buttonEsquina.getVisibleRect().y+buttonEsquina.getHeight());
             }
         });
         toolBar.add(Box.createHorizontalGlue());
@@ -597,7 +596,7 @@ public class TabbedPane extends JTabbedPane {
                     a_targetIndex = 0;
                 }
                 insertTab(str, icon, cmp, null, a_targetIndex);
-                setTabComponentAt(sourceIndex, new Cross(this, str,icon));
+                setTabComponentAt(sourceIndex, new Cross(this, str,cmp,icon));
             }
 
             setSelectedComponent(cmp);
@@ -616,12 +615,12 @@ public class TabbedPane extends JTabbedPane {
             source.remove(sourceIndex);
             insertTab(str, icon, cmp, null, a_targetIndex);
             setSelectedIndex(a_targetIndex);
-            setTabComponentAt(a_targetIndex, new Cross(this, str,icon));
+            setTabComponentAt(a_targetIndex, new Cross(this, str,cmp,icon));
         } else {
             source.remove(sourceIndex);
             insertTab(str, icon, cmp, null, a_targetIndex - 1);
             setSelectedIndex(a_targetIndex - 1);
-            setTabComponentAt(a_targetIndex - 1, new Cross(this, str,icon));
+            setTabComponentAt(a_targetIndex - 1, new Cross(this, str,cmp,icon));
         }
     }
 
@@ -726,33 +725,30 @@ public class TabbedPane extends JTabbedPane {
 }
 
 class Cross extends JPanel {
-    private JLabel title;
-    private JButton closeButton;
-    private int size = 22;
-    public Cross(final JTabbedPane jTabbedPane,String title){
-        this(jTabbedPane,title,null);
+    public Cross(final TabbedPane tabbedPane,String title,Component component){
+        this(tabbedPane,title,component,null);
     }
-    public Cross(final JTabbedPane jTabbedPane, String title,Icon icon) {
+    public Cross(final TabbedPane tabbedPane, String title,Component component,Icon icon) {
         setOpaque(false);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
-        this.title = new JLabel(title+" ");
-        this.title.setForeground(new Color(0x3C7EC0));
-        this.title.setIcon(icon);
-        this.title.setIconTextGap(5);
-        closeButton = new JButton();
+        JLabel title1 = new JLabel(title + " ");
+        title1.setForeground(new Color(0x3C7EC0));
+        title1.setIcon(icon);
+        title1.setIconTextGap(5);
+        JButton closeButton = new JButton();
         closeButton.setContentAreaFilled(false);
         closeButton.setBorderPainted(false);
         closeButton.setPreferredSize(new Dimension(20,20));
         closeButton.setToolTipText("Cerrar Pestaña " + title);
-        closeButton.setIcon(getImage("cerrar.png"));
-        closeButton.setRolloverIcon(getImage("cerrar2.png"));
-        closeButton.setPressedIcon(getImage("cerrar3.png"));
-        closeButton.addActionListener(e -> jTabbedPane.removeTabAt(jTabbedPane.indexOfTab(title)));
-        add(this.title, gbc);
+        closeButton.setIcon(getImage("close.png"));
+        closeButton.setRolloverIcon(getImage("close2.png"));
+        closeButton.setPressedIcon(getImage("close3.png"));
+        closeButton.addActionListener(e ->tabbedPane.remove(component));
+        add(title1, gbc);
         gbc.gridx++;
         gbc.weightx = 0;
         add(closeButton, gbc);
@@ -761,6 +757,7 @@ class Cross extends JPanel {
         Image IMG = null;
         try {
             IMG = new ImageIcon(App.class.getResource(String.format("Icons/x24/" + icono))).getImage();
+            int size = 22;
             IMG = IMG.getScaledInstance(size, size, Image.SCALE_SMOOTH);
         } catch (Exception e) {
             e.printStackTrace();

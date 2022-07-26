@@ -99,6 +99,6 @@ public class DSettings extends JDialog{
     private void loadSettings(){
         txtNameInstitution.setText(FramePrincipal.school.getName());
         txtPassword.setText(propiedades.getPassword());
-        cbbTema.setSelectedIndex(propiedades.getTema().equals("Claro")?0:1);
+        cbbTema.setSelectedItem(propiedades.getTema());
     }
 }
