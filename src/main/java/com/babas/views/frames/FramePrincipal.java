@@ -22,11 +22,11 @@ import java.util.List;
 public class FramePrincipal extends JFrame{
     private JPanel contentPane;
     private JButton btnVotation;
-    private JButton btnElecctions;
+    private JToggleButton btnElecctions;
     private JLabel lblNameSchool;
     private JSplitPane splitPane;
     private TabbedPane tabbedPane;
-    private JButton btnStudents;
+    private JToggleButton btnStudents;
     private JButton btnSettings;
     public static List<Student> students;
     public static List<Election> elections;
@@ -77,8 +77,8 @@ public class FramePrincipal extends JFrame{
         }
         if (tabbedPane.indexOfTab(tabStudents.getTabPane().getTitle()) == -1) {
             tabStudents = new TabStudents();
+            tabStudents.getTabPane().setOption(btnStudents);
             tabbedPane.addTab(tabStudents.getTabPane().getTitle(), tabStudents.getTabPane().getIcon(), tabStudents.getTabPane());
-
         }
         tabbedPane.setSelectedIndex(tabbedPane.indexOfTab(tabStudents.getTabPane().getTitle()));
     }
@@ -88,6 +88,7 @@ public class FramePrincipal extends JFrame{
         }
         if (tabbedPane.indexOfTab(tabElections.getTabPane().getTitle()) == -1) {
             tabElections = new TabElections();
+            tabElections.getTabPane().setOption(btnElecctions);
             tabbedPane.addTab(tabElections.getTabPane().getTitle(), tabElections.getTabPane().getIcon(), tabElections.getTabPane());
 
         }

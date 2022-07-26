@@ -15,8 +15,6 @@ public class DSettings extends JDialog{
     private JButton btnAplyThme;
     private JTextField txtNameInstitution;
     private JButton hechoButton;
-    private JTextField txtDatabaseUrl;
-    private JButton btnTryConection;
     private JButton btnSave;
     private JTextField txtPassword;
     private Propiedades propiedades;
@@ -78,7 +76,6 @@ public class DSettings extends JDialog{
             propiedades.guardar();
             FramePrincipal.school.setName(txtNameInstitution.getText());
             FramePrincipal.school.save();
-            Babas.session.getEntityManagerFactory().getProperties().put("connection.url",txtDatabaseUrl.getText());
             framePrincipal.loadSchool();
             onDispose();
             Notify.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Cambios guardados");
@@ -102,7 +99,6 @@ public class DSettings extends JDialog{
     private void loadSettings(){
         txtNameInstitution.setText(FramePrincipal.school.getName());
         txtPassword.setText(propiedades.getPassword());
-        txtDatabaseUrl.setText(String.valueOf(Babas.session.getEntityManagerFactory().getProperties().get("connection.url")));
         cbbTema.setSelectedIndex(propiedades.getTema().equals("Claro")?0:1);
     }
 }

@@ -114,24 +114,22 @@
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
               </vspacer>
-              <component id="cd01a" class="javax.swing.JButton" binding="btnElecctions">
+              <component id="caeec" class="javax.swing.JToggleButton" binding="btnElecctions">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font size="16"/>
                   <text value="Elecciones"/>
-                  <toolTipText value="Ver lista de elecciones"/>
                 </properties>
               </component>
-              <component id="3ead3" class="javax.swing.JButton" binding="btnStudents">
+              <component id="565b6" class="javax.swing.JToggleButton" binding="btnStudents">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font size="16"/>
                   <text value="Ver estudiantes"/>
-                  <toolTipText value="Ver lista de estudiantes"/>
                 </properties>
               </component>
             </children>

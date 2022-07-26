@@ -71,6 +71,7 @@ public class Utilities {
     public static void setJFrame(JFrame jFrame){
         Utilities.jFrame=jFrame;
     }
+
     public static JFrame getJFrame(){
         return jFrame;
     }
