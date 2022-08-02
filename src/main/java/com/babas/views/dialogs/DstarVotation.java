@@ -8,7 +8,6 @@ import com.babas.utilitiesTables.tablesModels.ElectionTableModel;
 import com.babas.views.frames.FramePrincipal;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
 public class DstarVotation extends JDialog {
@@ -57,7 +56,7 @@ public class DstarVotation extends JDialog {
             Election election=model.get(table.getSelectedRow());
             dispose();
             framePrincipal.setVisible(false);
-            Dvotation dvotation =new Dvotation(election,propiedades,framePrincipal);
+            Dvotation dvotation =new Dvotation(election,framePrincipal);
             dvotation.setVisible(true);
         }else{
            JOptionPane.showMessageDialog(null,"Debe seleccionar una elección","ERROR",JOptionPane.INFORMATION_MESSAGE);

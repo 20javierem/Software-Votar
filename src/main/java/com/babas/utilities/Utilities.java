@@ -51,6 +51,7 @@ public class Utilities {
         return "dd/MM/yyyy";
     }
     private static JFrame jFrame;
+    private static Propiedades propiedades;
 
     public static JSpinner.NumberEditor getEditorPrice(JSpinner spinner) {
         return new JSpinner.NumberEditor(spinner, "###,###,###.##");
@@ -71,6 +72,15 @@ public class Utilities {
                 break;
         }
     }
+
+    public static Propiedades getPropiedades() {
+        return propiedades;
+    }
+
+    public static void setPropiedades(Propiedades propiedades) {
+        Utilities.propiedades = propiedades;
+    }
+
     public static void setJFrame(JFrame jFrame){
         Utilities.jFrame=jFrame;
     }

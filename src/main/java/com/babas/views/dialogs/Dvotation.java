@@ -26,12 +26,12 @@ public class Dvotation extends JFrame {
     private JButton btnEndVotation;
     private JLabel lblImage;
     private Election election;
-    private Propiedades propiedades;
     private FramePrincipal framePrincipal;
 
-    public Dvotation(Election election,Propiedades propiedades,FramePrincipal framePrincipal){
+    public Dvotation(Election election,FramePrincipal framePrincipal){
+        Utilities.getPropiedades().setElection(String.valueOf(election.getId()));
+        Utilities.getPropiedades().guardar();
         this.election=election;
-        this.propiedades=propiedades;
         this.framePrincipal=framePrincipal;
         initComponents();
         btnVotation.addActionListener(new ActionListener() {
@@ -60,7 +60,9 @@ public class Dvotation extends JFrame {
         String password=JOptionPane.showInputDialog(null,"TERMINAR ELECCIÓN","Ingrese la contraseña",JOptionPane.PLAIN_MESSAGE);
         if(password!=null){
             if(!password.isBlank()){
-                if(propiedades.getPassword().equals(password)){
+                if(Utilities.getPropiedades().getPassword().equals(password)){
+                    Utilities.getPropiedades().setElection("");
+                    Utilities.getPropiedades().guardar();
                     election.setActive(false);
                     election.save();
                     FramePrincipal.electionsActives.remove(election);

@@ -1,7 +1,10 @@
 package com.babas.views.dialogs;
 
+import com.babas.custom.ModelPieChart;
+import com.babas.custom.PieChart;
 import com.babas.models.Election;
 import com.babas.utilities.Babas;
+import com.babas.utilities.Colors;
 import com.babas.utilitiesTables.UtilitiesTables;
 import com.babas.utilitiesTables.buttonEditors.JButtonEditorCandidate;
 import com.babas.utilitiesTables.buttonEditors.JButtonEditorStudent;
@@ -25,6 +28,8 @@ public class DeditElection extends JDialog{
     private JButton btnHecho;
     private JLabel lblVotesBlank;
     private JLabel lblTotalVotes;
+    private JTabbedPane tabbedPane1;
+    private PieChart pieChart;
     private Election election;
     private boolean update=false;
     private JTable tableElection;
@@ -133,5 +138,16 @@ public class DeditElection extends JDialog{
             txtDescription.setEditable(false);
             txtDescription.setBorder(null);
         }
+        loadPiechart();
+    }
+    private void loadPiechart(){
+        pieChart.setChartType(PieChart.PeiChartType.DONUT_CHART);
+        if(!election.getVotosBlank().isEmpty()){
+            pieChart.addData(new ModelPieChart("Votos en blanco", election.getVotosBlank().size(), Colors.colors[0]));
+        }
+        for(int i=0;i<election.getCandidates().size();i++){
+            pieChart.addData(new ModelPieChart(election.getCandidates().get(i).getStudent().getName(), election.getCandidates().get(i).getVotes().size(), Colors.colors[i+1]));
+        }
+
     }
 }

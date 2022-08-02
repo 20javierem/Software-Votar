@@ -1,5 +1,7 @@
 package com.babas.utilities;
 
+import com.babas.models.Election;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -76,5 +78,15 @@ public class Propiedades {
     }
     public String getTema() {
         return properties.getProperty("tema");
+    }
+
+    public void setElection(String id){
+        properties.put("election",id);
+    }
+    public Integer getElection(){
+        if(!properties.getProperty("election").isBlank()){
+            return Integer.valueOf(properties.getProperty("election"));
+        }
+        return null;
     }
 }

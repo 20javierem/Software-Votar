@@ -75,24 +75,24 @@ public class FramePrincipal extends JFrame{
         if(tabStudents ==null){
             tabStudents =new TabStudents();
         }
-        if (tabbedPane.indexOfTab(tabStudents.getTabPane().getTitle()) == -1) {
+        if (tabbedPane.indexOfComponent(tabStudents.getTabPane()) == -1) {
             tabStudents = new TabStudents();
             tabStudents.getTabPane().setOption(btnStudents);
             tabbedPane.addTab(tabStudents.getTabPane().getTitle(), tabStudents.getTabPane().getIcon(), tabStudents.getTabPane());
         }
-        tabbedPane.setSelectedIndex(tabbedPane.indexOfTab(tabStudents.getTabPane().getTitle()));
+        tabbedPane.setSelectedIndex(tabbedPane.indexOfComponent(tabStudents.getTabPane()));
     }
     public void loadElections(){
         if(tabElections ==null){
             tabElections =new TabElections();
         }
-        if (tabbedPane.indexOfTab(tabElections.getTabPane().getTitle()) == -1) {
+        if (tabbedPane.indexOfComponent(tabElections.getTabPane()) == -1) {
             tabElections = new TabElections();
             tabElections.getTabPane().setOption(btnElecctions);
             tabbedPane.addTab(tabElections.getTabPane().getTitle(), tabElections.getTabPane().getIcon(), tabElections.getTabPane());
 
         }
-        tabbedPane.setSelectedIndex(tabbedPane.indexOfTab(tabElections.getTabPane().getTitle()));
+        tabbedPane.setSelectedIndex(tabbedPane.indexOfComponent(tabElections.getTabPane()));
     }
     private void loadStartElection(){
         if(!electionsActives.isEmpty()){
@@ -113,6 +113,7 @@ public class FramePrincipal extends JFrame{
         setExtendedState(MAXIMIZED_BOTH);
         pack();
         setLocationRelativeTo(null);
+        Utilities.setPropiedades(propiedades);
     }
     public void loadSchool(){
         lblNameSchool.setText(school.getName());

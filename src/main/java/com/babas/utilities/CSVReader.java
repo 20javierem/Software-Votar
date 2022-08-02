@@ -24,24 +24,26 @@ public class CSVReader {
     public static void importStudents(JTable table){
         Path path=pedirNombre((Frame) table.getRootPane().getParent());
         if(path!=null){
-            try(BufferedReader bufferedReader= Files.newBufferedReader(path, StandardCharsets.US_ASCII)) {
-                String line = bufferedReader.readLine();
-                while (line!=null){
-                    String[] attributes = line.split(",");
-                    Student student = Student.create(attributes);
-                    Set<ConstraintViolation<Student>> errors = StudentValidator.loadViolations(student);
-                    if (errors.isEmpty()) {
-                        if(Students.getByDni(student.getDni())==null){
-                            student.save();
-                            FramePrincipal.students.add(student);
-                            UtilitiesTables.actualizarTabla(table);
+            if(Files.exists(path)){
+                try(BufferedReader bufferedReader= Files.newBufferedReader(path, StandardCharsets.US_ASCII)) {
+                    String line = bufferedReader.readLine();
+                    while (line!=null){
+                        String[] attributes = line.split(",");
+                        Student student = Student.create(attributes);
+                        Set<ConstraintViolation<Student>> errors = StudentValidator.loadViolations(student);
+                        if (errors.isEmpty()) {
+                            if(Students.getByDni(student.getDni())==null){
+                                student.save();
+                                FramePrincipal.students.add(student);
+                                UtilitiesTables.actualizarTabla(table);
+                            }
                         }
+                        line = bufferedReader.readLine();
                     }
-                    line = bufferedReader.readLine();
+                    Notify.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Alumnos importados");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                Notify.sendNotify(Utilities.getJFrame(), Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT,"ÉXITO","Alumnos importados");
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }
