@@ -1,8 +1,8 @@
 package com.babas.custom;
 
 
-import com.babas.App;
 import com.babas.utilities.Utilities;
+import com.moreno.App;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -107,9 +107,11 @@ public class TabbedPane extends JTabbedPane {
     private void setVisibleButtonEsquina(boolean istade){
         toolBar.setVisible(istade);
     }
+
     private void despintar(){
         for (Component component : getComponents()) {
             if(indexOfComponent(component)!=-1){
+                setBackgroundAt(indexOfComponent(component),new JPanel().getBackground());
                 setEnabledAt(indexOfComponent(component),true);
                 if(component instanceof TabPane){
                     TabPane tabPane=(TabPane) component;
@@ -128,6 +130,7 @@ public class TabbedPane extends JTabbedPane {
 
     public void pintarSeleccionado(){
         if(getSelectedIndex()!=-1){
+            setBackgroundAt(getSelectedIndex(),new JPanel().getBackground().brighter());
             setEnabledAt(getSelectedIndex(),false);
             if(getComponentAt(getSelectedIndex()) instanceof TabPane){
                 TabPane tabPane =(TabPane) getComponentAt(getSelectedIndex());
@@ -217,7 +220,6 @@ public class TabbedPane extends JTabbedPane {
         toolBar.add(buttonEsquina);
         putClientProperty("JTabbedPane.trailingComponent", toolBar);
         putClientProperty("JTabbedPane.tabInsets",new Insets(0,10,0,5));
-//        putClientProperty("JTabbedPane.showTabSeparators",true);
     }
 
     public TabbedPane() {
