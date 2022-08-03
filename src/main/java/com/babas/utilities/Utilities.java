@@ -2,10 +2,7 @@ package com.babas.utilities;
 
 import com.babas.App;
 import com.babas.utilitiesTables.UtilitiesTables;
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.*;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperReport;
@@ -57,6 +54,7 @@ public class Utilities {
         return new JSpinner.NumberEditor(spinner, "###,###,###.##");
     }
     public static void setTema(String tema){
+        FlatLaf.registerCustomDefaultsSource("com.babas.themes");
         switch (tema){
             case "Ligth":
                 FlatIntelliJLaf.setup();
